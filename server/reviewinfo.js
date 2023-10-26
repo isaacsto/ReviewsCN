@@ -5,7 +5,7 @@ const port = 3000;
 
 app.use(express.json());
 
-app.get('/reviews', (req, res) => {
+/* app.get('/reviews', (req, res) => {
     const companyName = req.query.companyName;
     const key = 'fa1466ca45b9512163934cab2e61863118ced546a3ee33f1fc9185c46a5f16a1'
     const serpApiUrl = `https://serpapi.com/search.json?q=site:yoursite.com+${companyName}&api_key=${key}`;
@@ -26,7 +26,7 @@ app.get('/reviews', (req, res) => {
             console.error('Error making the API request:', error);
             res.status(500).json({ error: 'An error occurred while fetching data.' });
         });
-});
+}); */
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
