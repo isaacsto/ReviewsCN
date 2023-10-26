@@ -1,4 +1,4 @@
-const APIkey = "fa1466ca45b9512163934cab2e61863118ced546a3ee33f1fc9185c46a5f16a1";
+const APIkey = "";
 const reviews = [];
 let companyName = "";
 
