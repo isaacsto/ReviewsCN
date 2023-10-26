@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Reviews</title>
+</head>
+<body>
+    <h1>Company Reviews</h1>
+    <label for="companyName">Enter Company Name: </label>
+    <input type="text" id="companyName" placeholder="Company Name">
+    <button id="searchButton">Search</button>
+    <div id="results">
+        <p>Total Reviews: <span id="totalReviews">N/A</span></p>
+        <p>Average Rating: <span id="averageRating">N/A</span></p>
+    </div>
+    <script>
+        const searchButton = document.getElementById('searchButton');
+        const companyNameInput = document.getElementById('companyName');
+        const totalReviews = document.getElementById('totalReviews');
+        const averageRating = document.getElementById('averageRating');
+
+        searchButton.addEventListener('click', () => {
+            const companyName = companyNameInput.value;
+
+            // You can make an HTTP request to your server with the user-inputted company name.
+            // In this example, it's hardcoded to "yourserver.com" for demonstration purposes.
+            fetch(`http://yourserver.com/reviews?companyName=${companyName}`)
+                .then(response => response.json())
+                .then(data => {
+                    totalReviews.textContent = data.totalReviews || 'N/A';
+                    averageRating.textContent = data.averageRating || 'N/A';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+</html>
