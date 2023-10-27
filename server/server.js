@@ -35,16 +35,16 @@ app.post('/api/search', (req, res) => {
       method: 'post',
       url: 'https://api.dataforseo.com/v3/business_data/google/reviews/task_post',
       auth: {
-        username: username,
-        password: password,
+        username: 'login',
+        password: 'password',
       },
       data: post_array,
       headers: {
         'content-type': 'application/json',
       }
     }).then(function (response) {
-      var result = response.data.tasks; // response.data, not response['data']
-      res.json(result); // Send the result to the client
+      var result = response['data']['tasks'];
+      //res.json(result); 
     }).catch(function (error) {
       console.log(error);
       res.status(500).json({ error: 'An error occurred while fetching data.' });
