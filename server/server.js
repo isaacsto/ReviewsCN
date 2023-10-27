@@ -45,7 +45,7 @@ axios({
   }
 }).then(function (response) {
   var result = response['data']['tasks'];
-  // Result data
+  =
   console.log(result);
 }).catch(function (error) {
   console.log(error);
