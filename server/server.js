@@ -16,8 +16,9 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 
+require('dotenv').config(); 
+const API_key = process.env.API_KEY;
 
-const API_key = process.env.key;
 
 app.post('/api/search', (req, res) => {
   try {
