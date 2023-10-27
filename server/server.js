@@ -15,8 +15,7 @@ app.use((req, res, next) => {
 // parse JSON
 app.use(express.json());
 
-const username = 'your_username'; // Replace with your DataForSEO username
-const password = 'your_password'; // Replace with your DataForSEO password
+const API_key = "fa1466ca45b9512163934cab2e61863118ced546a3ee33f1fc9185c46a5f16a1";
 
 app.post('/api/search', (req, res) => {
   try {
@@ -35,17 +34,17 @@ app.post('/api/search', (req, res) => {
     axios({
       method: 'post',
       url: 'https://api.dataforseo.com/v3/business_data/google/reviews/task_post',
-      auth: {
-        username: 'login',
-        password: 'password',
-      },
+       auth: {
+        username: API_key,
+        password: '',
+      }, 
       data: post_array,
       headers: {
         'content-type': 'application/json',
       }
     }).then(function (response) {
       var result = response['data']['tasks'];
-      //res.json(result); 
+      res.json(result); 
     }).catch(function (error) {
       console.log(error);
       res.status(500).json({ error: 'An error occurred while fetching data.' });
