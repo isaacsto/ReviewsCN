@@ -1,33 +1,39 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
+// Enable CORS for all routes
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
+// Middleware to parse JSON data
 app.use(express.json());
 
-/* app.get('/reviews', (req, res) => {
-    const companyName = req.query.companyName;
-    const key = 'fa1466ca45b9512163934cab2e61863118ced546a3ee33f1fc9185c46a5f16a1'
-    const serpApiUrl = `https://serpapi.com/search.json?q=site:yoursite.com+${companyName}&api_key=${key}`;
+var key=""
+// POST route for searching the company
+app.post('/searchCompany', async (req, res) => {
+    const { companyName } = req.body;
 
-    axios.get(serpApiUrl)
-        .then(response => {
-            const searchResults = response.data;
-            if (searchResults.organic_results.length > 0) {
-                const firstResult = searchResults.organic_results[0];
-                const totalReviews = firstResult.review_count || 'N/A';
-                const averageRating = firstResult.review_rating || 'N/A';
-                res.json({ totalReviews, averageRating });
-            } else {
-                res.json({ totalReviews: 'N/A', averageRating: 'N/A' });
-            }
-        })
-        .catch(error => {
-            console.error('Error making the API request:', error);
-            res.status(500).json({ error: 'An error occurred while fetching data.' });
-        });
-}); */
+    try {
+        if (!companyName) {
+            return res.status(400).json({ error: 'Please provide a company name.' });
+        }
+
+        const serpApiUrl = `https://serpapi.com/search.json?q=${companyName}&api_key=${key}`; // Replace with your API key
+        const response = await axios.get(serpApiUrl);
+        const data = response.data;
+
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while fetching data.' });
+    }
+});
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Backend server is running on port ${port}`);
 });

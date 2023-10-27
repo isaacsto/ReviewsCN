@@ -1,43 +1,41 @@
-const APIkey = "";
-const reviews = [];
-let companyName = "";
+// client.js
 
-var searchButtonEl = document.querySelector('#search-button');
+document.addEventListener("DOMContentLoaded", function() {
+    const searchButton = document.getElementById("searchButton");
+    const companyNameInput = document.getElementById("companyNameInput");
+    const resultsDiv = document.getElementById("results");
 
-searchButtonEl.addEventListener('click', function (event) { 
-    event.preventDefault();
+    searchButton.addEventListener("click", async function() {
+        const companyName = companyNameInput.value;
 
-    let companyName = document.getElementById('search-input').value;    
-    console.log(companyName);
-
-});
-
-function searchCompany(companyName) {
-
-    let searchValue = document.getElementById("companyName").value;
-    if (searchValue === "") {
-        alert("Please enter a company name");
-        return;
-    }
-
-}
-
-function getReviews() {
-    var reviewsUrl = "https://serpapi.com/search.json?q=" + companyName + "&api_key=" + APIkey;
-
-    var reviews = $('.reviews')
-
-    fetch(reviewsUrl)
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(data){
-        console.log(data);
-        reviews.empty();
-        for (var i = 0; i < data.length; i++) {
-            var review = data[i].review;
-            var reviewEl = $('<p>').text(review);
-            reviews.append(reviewEl);
+        if (!companyName) {
+            resultsDiv.innerHTML = "Please enter a company name.";
+            return;
         }
-    })
-}
+
+        try {
+            const response = await fetch("/searchCompany", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ companyName })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                displayResults(data);
+            } else {
+                resultsDiv.innerHTML = "An error occurred while fetching data.";
+            }
+        } catch (error) {
+            console.error(error);
+            resultsDiv.innerHTML = "An error occurred while processing the request.";
+        }
+    });
+
+    function displayResults(data) {
+      
+        resultsDiv.innerHTML = JSON.stringify(data, null, 2);
+    }
+});
