@@ -3,64 +3,58 @@ const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Enable CORS 
+// Enable CORS
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
 });
 
-// parse JSON 
+// parse JSON
 app.use(express.json());
 
-var key="fa1466ca45b9512163934cab2e61863118ced546a3ee33f1fc9185c46a5f16a1"
+const username = 'your_username'; // Replace with your DataForSEO username
+const password = 'your_password'; // Replace with your DataForSEO password
 
-app.post('/searchCompany', async (req, res) => {
-    const { companyName } = req.body;
+app.post('/api/search', (req, res) => {
+  try {
+    const location = req.body.location_name;
+    const keyword = req.body.keyword;
 
-    try {
-        if (!companyName) {
-            return res.status(400).json({ error: 'Please provide a company name.' });
-        }
+    const post_array = [
+      {
+        "location_name": location,
+        "language_name": "English",
+        "keyword": encodeURI(keyword),
+        "depth": 50,
+      }
+    ];
 
-        const post_array = [];
-post_array.push({
-  "location_name": "London,England,United Kingdom",
-  "language_name": "English",
-  "keyword": encodeURI("hedonism wines"),
-  "depth": 50,
-});
-const axios = require('axios');
-axios({
-  method: 'post',
-  url: 'https://api.dataforseo.com/v3/business_data/google/reviews/task_post',
-  auth: {
-    username: 'login',
-    password: 'password'
-  },
-  data: post_array,
-  headers: {
-    'content-type': 'application/json'
+    axios({
+      method: 'post',
+      url: 'https://api.dataforseo.com/v3/business_data/google/reviews/task_post',
+      auth: {
+        username: username,
+        password: password,
+      },
+      data: post_array,
+      headers: {
+        'content-type': 'application/json',
+      }
+    }).then(function (response) {
+      var result = response.data.tasks; // response.data, not response['data']
+      res.json(result); // Send the result to the client
+    }).catch(function (error) {
+      console.log(error);
+      res.status(500).json({ error: 'An error occurred while fetching data.' });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while processing the request.' });
   }
-}).then(function (response) {
-  var result = response['data']['tasks'];
-  =
-  console.log(result);
-}).catch(function (error) {
-  console.log(error);
 });
-
-        res.json(data);
-    } catch (error) {
-        res.status(500).json({ error: 'An error occurred while fetching data.' });
-    }
-}); 
-
-
-
-
 
 app.listen(port, () => {
-    console.log(`Backend server is running on port ${port}`);
+  console.log(`Backend server is running on port ${port}`);
 });

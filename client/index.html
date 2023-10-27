@@ -5,9 +5,15 @@
     <title>Company Search</title>
 </head>
 <body>
-    <input type="text" id="companyNameInput" placeholder="Enter company name">
-    <button id="searchButton">Search</button>
-    <div id="results"></div>
+    <h1>Location and Keyword Search</h1>
+    <form id="searchForm">
+      <label for="locationInput">Location:</label>
+      <input type="text" id="locationInput" name="location" required><br>
+      <label for="keywordInput">Keyword:</label>
+      <input type="text" id="keywordInput" name="keyword" required><br>
+      <button type="submit">Search</button>
+    </form>
+    <div id="result"></div>
     <script src="script.js"></script>
 </body>
 </html>
