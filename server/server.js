@@ -1,6 +1,6 @@
 
 const express = require('express');
-const axios = require('axios');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -22,13 +22,13 @@ const API_key = process.env.API_KEY;
 
 
 
-app.post('/api/search', (req, res) => {
+app.post('/search?engine=google_maps_reviews', (req, res) => {
   try {
     const keyword = req.body.keyword; 
     const location = req.body.location;
 
     getJson({
-      engine: "google_product",
+      engine: "google_maps_reviews",
       q: keyword,
       location: location, 
       reviews: "1",
@@ -37,19 +37,8 @@ app.post('/api/search', (req, res) => {
       api_key: API_key, 
     }, (json) => {
       console.log(json["reviews_results"]);
-    });
 
-    axios({
-      method: 'post',
-      url: 'https://serpapi.com/search.json?engine=google_product&product_id=4172129135583325756&reviews=1&gl=us&hl=en',
-       auth: {
-        username: API_key,
-        password: '',
-      }, 
-      data: post_array,
-      headers: {
-        'content-type': 'application/json',
-      }
+    
     }).then(function (response) {
       var result = response['data']['tasks'];
       res.json(result); 
