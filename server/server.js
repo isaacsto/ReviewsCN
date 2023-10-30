@@ -14,11 +14,10 @@ app.use((req, res, next) => {
 // parse JSON
 app.use(express.json());
 
+app.use(express.static('../client/index.html'));
 
 require('dotenv').config(); 
 const API_key = process.env.API_KEY;
-
-
 
 
 app.post('/search?engine=google_maps_reviews', (req, res) => {
