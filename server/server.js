@@ -17,19 +17,39 @@ app.use(express.json());
 app.use(express.static('../client/index.html'));
 
 require('dotenv').config(); 
-const API_key = process.env.API_KEY;
+const API_key = process.env.API_key;
 
+
+  app.get('https://serpapi.com/search', (req, res) => {
+    try {
+      
+      const { getJson } = require("serpapi");
+      getJson({
+        engine: "google",
+        api_key: API_key,
+      }, (json) => {
+        console.log(json["data_id"]);
+  
+      
+      }).then(function (response) {
+        var result = response.data.tasks
+        res.json(result); 
+      }).catch(function (error) {
+        console.log(error);
+        res.status(500).json({ error: 'An error occurred while fetching data.' });
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while processing the request.' });
+    }
+  });
 
 app.post('https://serpapi.com/search?engine=google_maps_reviews', (req, res) => {
   try {
-    const keyword = req.body.keyword; 
-    const location = req.body.location;
-
+    
     const { getJson } = require("serpapi");
     getJson({
       engine: "google_maps_reviews",
-      q: keyword,
-      location: location, 
       reviews: "1",
       gl: "us",
       hl: "en",
@@ -39,7 +59,7 @@ app.post('https://serpapi.com/search?engine=google_maps_reviews', (req, res) => 
 
     
     }).then(function (response) {
-      var result = response['data']['tasks'];
+      var result = response.data.tasks
       res.json(result); 
     }).catch(function (error) {
       console.log(error);
