@@ -20,7 +20,7 @@ require('dotenv').config();
 const API_key = process.env.API_KEY;
 
 
-app.post('/search?engine=google_maps_reviews', (req, res) => {
+app.post('https://serpapi.com/search?engine=google_maps_reviews', (req, res) => {
   try {
     const keyword = req.body.keyword; 
     const location = req.body.location;
