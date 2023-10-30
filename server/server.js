@@ -27,13 +27,13 @@ const location = require('../script.js');
 
 app.post('/api/search', (req, res) => {
   try {
-    const locationFromScript = location; 
-    const keywordFromScript = keyword;
+    const keyword = req.body.keyword; 
+    const location = req.body.location;
 
     getJson({
       engine: "google_product",
-      q: keywordFromScript,
-      product_id: "4172129135583325756",
+      q: keyword,
+      location: location, 
       reviews: "1",
       gl: "us",
       hl: "en",
