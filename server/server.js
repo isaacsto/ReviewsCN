@@ -2,6 +2,7 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
+const { getJson } = require("serpapi");
 const port = process.env.PORT || 3000;
 
 // Enable CORS
@@ -18,21 +19,28 @@ app.use(express.json());
 
 require('dotenv').config(); 
 const API_key = process.env.API_KEY;
+const search_key = process.env.search_key;
+
+const keyword = require('../script.js');
+const location = require('../script.js');
 
 
 app.post('/api/search', (req, res) => {
   try {
-    const location = req.body.location_name;
-    const keyword = req.body.keyword;
-   
-    const post_array = [
-      {
-        "location_name": location,
-        "language_name": "English",
-        "keyword": encodeURI(keyword),
-        "depth": 50,
-      }
-    ];
+    const locationFromScript = location; 
+    const keywordFromScript = keyword;
+
+    getJson({
+      engine: "google_product",
+      q: keywordFromScript,
+      product_id: "4172129135583325756",
+      reviews: "1",
+      gl: "us",
+      hl: "en",
+      api_key: search_key, 
+    }, (json) => {
+      console.log(json["reviews_results"]);
+    });
 
     axios({
       method: 'post',
