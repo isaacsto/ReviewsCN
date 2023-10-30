@@ -2,7 +2,6 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const { getJson } = require("serpapi");
 const port = process.env.PORT || 3000;
 
 // Enable CORS
@@ -19,10 +18,8 @@ app.use(express.json());
 
 require('dotenv').config(); 
 const API_key = process.env.API_KEY;
-const search_key = process.env.search_key;
 
-const keyword = require('../script.js');
-const location = require('../script.js');
+
 
 
 app.post('/api/search', (req, res) => {
@@ -37,7 +34,7 @@ app.post('/api/search', (req, res) => {
       reviews: "1",
       gl: "us",
       hl: "en",
-      api_key: search_key, 
+      api_key: API_key, 
     }, (json) => {
       console.log(json["reviews_results"]);
     });
