@@ -1,6 +1,5 @@
 
 const express = require('express');
-
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -27,6 +26,7 @@ app.post('/search?engine=google_maps_reviews', (req, res) => {
     const keyword = req.body.keyword; 
     const location = req.body.location;
 
+    const { getJson } = require("serpapi");
     getJson({
       engine: "google_maps_reviews",
       q: keyword,

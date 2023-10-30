@@ -6,7 +6,7 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
   
 
   // Send the data to the server
-  fetch('http://localhost:3000/search?engine=google_maps_reviews', {
+  fetch('http://localhost:3000/api/search', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
