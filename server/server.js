@@ -36,7 +36,7 @@ app.post('/api/search', (req, res) => {
 
     axios({
       method: 'post',
-      url: 'https://api.dataforseo.com/v3/business_data/google/reviews/task_post',
+      url: 'https://serpapi.com/search.json?engine=google_product&product_id=4172129135583325756&reviews=1&gl=us&hl=en',
        auth: {
         username: API_key,
         password: '',
