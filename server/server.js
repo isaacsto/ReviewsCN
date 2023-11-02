@@ -20,7 +20,7 @@ require('dotenv').config();
 const API_key = process.env.API_key;
 
 
-  app.get('https://serpapi.com/search', (req, res) => {
+  app.get('/api/search', (req, res) => {
     try {
       
       const { getJson } = require("serpapi");
@@ -44,7 +44,7 @@ const API_key = process.env.API_key;
     }
   });
 
-app.post('https://serpapi.com/search?engine=google_maps_reviews', (req, res) => {
+app.post('/api/search/google_maps_reviews', (req, res) => {
   try {
     
     const { getJson } = require("serpapi");
