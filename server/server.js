@@ -1,6 +1,4 @@
-
 const express = require('express');
-const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -15,37 +13,53 @@ app.use((req, res, next) => {
 // parse JSON
 app.use(express.json());
 
-const username = 'your_username'; // Replace with your DataForSEO username
-const password = 'your_password'; // Replace with your DataForSEO password
+app.use(express.static('../client/index.html'));
 
-app.post('/api/search', (req, res) => {
+require('dotenv').config(); 
+const API_key = process.env.API_key;
+
+
+  app.get('https://serpapi.com/search', (req, res) => {
+    try {
+      
+      const { getJson } = require("serpapi");
+      getJson({
+        engine: "google",
+        api_key: API_key,
+      }, (json) => {
+        console.log(json["data_id"]);
+  
+      
+      }).then(function (response) {
+        var result = response.data.tasks
+        res.json(result); 
+      }).catch(function (error) {
+        console.log(error);
+        res.status(500).json({ error: 'An error occurred while fetching data.' });
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while processing the request.' });
+    }
+  });
+
+app.post('https://serpapi.com/search?engine=google_maps_reviews', (req, res) => {
   try {
-    const location = req.body.location_name;
-    const keyword = req.body.keyword;
+    
+    const { getJson } = require("serpapi");
+    getJson({
+      engine: "google_maps_reviews",
+      reviews: "1",
+      gl: "us",
+      hl: "en",
+      api_key: API_key, 
+    }, (json) => {
+      console.log(json["reviews_results"]);
 
-    const post_array = [
-      {
-        "location_name": location,
-        "language_name": "English",
-        "keyword": encodeURI(keyword),
-        "depth": 50,
-      }
-    ];
-
-    axios({
-      method: 'post',
-      url: 'https://api.dataforseo.com/v3/business_data/google/reviews/task_post',
-      auth: {
-        username: 'login',
-        password: 'password',
-      },
-      data: post_array,
-      headers: {
-        'content-type': 'application/json',
-      }
+    
     }).then(function (response) {
-      var result = response['data']['tasks'];
-      //res.json(result); 
+      var result = response.data.tasks
+      res.json(result); 
     }).catch(function (error) {
       console.log(error);
       res.status(500).json({ error: 'An error occurred while fetching data.' });
