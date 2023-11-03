@@ -89,7 +89,7 @@ app.post('/api/search/google_maps_reviews', (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while processing the request.' });
+    res.status(500).json({ error: 'An error occurred while processing the request.' , details: error.message});
   }
 });
 
