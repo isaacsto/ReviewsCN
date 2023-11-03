@@ -9,7 +9,7 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
     headers: {
       'Content-Type': 'application/json',
     },
-    // You can't send a body in a GET request; remove this line
+   
   })
     .then(response => response.json())
     .then(data => {
