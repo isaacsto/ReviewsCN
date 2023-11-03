@@ -43,6 +43,29 @@ const API_key = process.env.API_key;
     }
   });
 
+app.get ('/api/search/google_maps_reviews', (req, res) => {
+  try {
+    const { getJson } = require("serpapi");
+    getJson({
+      engine: "google",
+      api_key: API_key,
+    }, (json) => {
+      console.log(json["data_id"]);
+
+    
+    }).then(function (response) {
+      var result = response.data.tasks
+      res.json(result); 
+    }).catch(function (error) {
+      console.log(error);
+      res.status(500).json({ error: 'An error occurred while fetching data.' });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while processing the request.' });
+  }
+});
+
 app.post('/api/search/google_maps_reviews', (req, res) => {
   try {
     
