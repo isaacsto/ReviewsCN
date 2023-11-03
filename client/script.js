@@ -6,15 +6,11 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
   // Send the data to the first API endpoint
   fetch('http://localhost:3000/api/search?location=${location}&keyword=${keyword}`', {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
    
   })
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      document.getElementById('result').textContent = JSON.stringify(data, null, 2);
     })
     .catch(error => {
       console.error('Error:', error);
@@ -23,16 +19,12 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
   // Send the data to the second API endpoint
   fetch('http://localhost:3000/api/search/google_maps_reviews?location=${location}&keyword=${keyword}', {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
    
   })
     .then(response => response.json())
     .then(data => {
       console.log(data);
       
-      document.getElementById('result2').textContent = JSON.stringify(data, null, 2);
     })
     .catch(error => {
       console.error('Error:', error);
