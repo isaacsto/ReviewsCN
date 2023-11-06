@@ -12,44 +12,73 @@ app.use((req, res, next) => {
   next();
 });
 
-// parse JSON
+// Parse JSON
 app.use(express.json());
 
-// Path to client folder
-app.use(express.static(path.join(__dirname, '../client')));
+// Serve static files from "client" 
+app.use(express.static(path.join(__dirname, 'client'))); 
 
-// Path to HTML
+// Serve HTML file
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
+  res.sendFile(path.join(__dirname, 'client/index.html')); // Adjust the path
 });
 
-// Path to env/api key
+// Load API_key
 require('dotenv').config();
 const API_key = process.env.API_key;
 
-// Call general search to get data id
+// Define a route for searching and fetching data
 app.get('/api/search', (req, res) => {
-  try {
-    getJson({
-      api_key: API_key,
-      engine: "google",
-      q: req.query.keyword,
-      location: req.query.location,
-      google_domain: "google.com",
-      gl: "us",
-      hl: "en"
-    }, (json) => {
-      console.log(json["reviews_results"]);
+  const location = req.query.location;
+  const keyword = req.query.keyword;
 
-    }).catch(function (error) {
-      console.log(error);
+  if (!location || !keyword) {
+    return res.status(400).json({ error: 'Location and keyword are required' });
+  }
+
+  getJson({
+    api_key: API_key,
+    engine: "google",
+    q: keyword,
+    location: location,
+    google_domain: "google.com",
+    gl: "us",
+    hl: "en"
+  })
+    .then((json) => {
+      console.log(json["reviews_results"]);
+      res.json(json);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while fetching data.' });
+    });
+});
+
+// Define a route for fetching reviews
+app.get('/api/search/google_maps_reviews', (req, res) => {
+  const dataId = req.query.dataId;
+
+  getJson({
+    api_key: API_key,
+    engine: "google_maps_reviews",
+    data_id: dataId,
+    hl: "en"
+  })
+    .then((reviewsJson) => {
+      console.log(reviewsJson["reviews_results"]);
+      res.json(reviewsJson);
+    })
+    .catch((error) => {
+      console.error(error);
       res.status(500).json({ error: 'An error occurred while fetching reviews data.' });
     });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred while processing the request.', details: error.message });
-  }
 });
+
+app.listen(port, () => {
+  console.log(`Backend server is running on port ${port}`);
+});
+
 
 
 /*
