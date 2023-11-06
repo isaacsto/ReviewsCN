@@ -14,8 +14,9 @@ app.use((req, res, next) => {
 // parse JSON
 app.use(express.json());
 
-const staticDir = path.join(server, '../client/index.html');
-app.use(express.static(staticDir));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'));
+});
 
 require('dotenv').config(); 
 

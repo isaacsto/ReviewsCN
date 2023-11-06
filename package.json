@@ -19,6 +19,7 @@
     "graphql-playground-middleware-express": "^1.7.23",
     "graphql-tools": "^9.0.0",
     "path": "^0.12.7",
-    "serpapi": "^2.0.0"
+    "serpapi": "^2.0.0",
+    "static": "^2.0.0"
   }
 }
