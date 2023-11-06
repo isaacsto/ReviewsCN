@@ -40,6 +40,19 @@ app.get('/api/search', (req, res) => {
       hl: "en"
     }, (json) => {
       console.log(json["reviews_results"]);
+
+    }).catch(function (error) {
+      console.log(error);
+      res.status(500).json({ error: 'An error occurred while fetching reviews data.' });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while processing the request.', details: error.message });
+  }
+});
+
+
+/*
       const dataId = json["id"];
 
       // define new route for fetching reviews

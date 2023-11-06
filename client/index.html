@@ -23,26 +23,33 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
   const keyword = document.getElementById('keywordInput').value;
 
   // Send the data to the first API endpoint
-  fetch('/api/search', {
-    method: 'GET',
+  fetch(`/api/search?location=${location}&keyword=${keyword}`, {
+    method: 'GET'
   })
-    .then(response => response.json()
-    .then(data => {
-      const dataId = data.id; 
-      fetch(`/api/google_maps_reviews?dataId=${dataId}`)
     .then(response => response.json())
-    .then(reviewsData => {
-      console.log(reviewsData.reviews_results);
+    .then(data => {
+      console.log(data);
+     
+      const dataId = data.id;
+      
+      // fetch reviews
+      fetch(`/api/search/google_maps_reviews?dataId=${dataId}`)
+        .then(response => response.json())
+        .then(reviewsData => {
+          console.log(reviewsData.reviews_results);
+        })
+        .catch(error => {
+          console.error('Error fetching reviews data:', error);
+        });
     })
     .catch(error => {
-      console.error('Error:', error);
+      console.error('Error fetching data:', error);
     });
+});
 
-    })
-    )
+  
 
     
-  });  
 
     </script>
 </body>
