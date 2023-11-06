@@ -28,8 +28,8 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
   .then(data => {
     console.log(data);
 
-    if ('data_id' in data) {
-      const dataId = data.data_id; 
+    if ('id' in data) {
+      const dataId = data.id; 
       return fetch(`http://localhost:3000/api/search/google_maps_reviews?data_id=${dataId}`, {
         method: 'GET',
       });

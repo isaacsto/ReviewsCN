@@ -31,30 +31,27 @@ const { getJson } = require("serpapi");
 app.get('/api/search', (req, res) => {
   try {
     getJson({
-      api_key: "48bca7f6206c2d414b2835e76cc154e8fce94bc54c60fe38396f241603226501",
+      api_key: API_key,
       engine: "google",
-      q: "Coffee",
-      location: "Austin, Texas, United States",
+      q: req.query.keyword,
+      location: req.query.location,
       google_domain: "google.com",
       gl: "us",
       hl: "en"
-      /*
-      api_key: API_key,
-      q: req.query.keyword,
-      location: req.query.location, */ 
+        
     }, (json) => {
       console.log(json["reviews_results"]);
       //store data id in const 
-      const dataId = json["data_id"];
+      const dataId = json["id"];
 
  
       //hit reviews endpoint 
-      app.get(`/api/search/google_maps_reviews`, (req, res) => {
+      app.get(`/api/search/google_maps_reviews&data_id=${dataId}`, (req, res) => {
         try {
           getJson({
-            api_key: "48bca7f6206c2d414b2835e76cc154e8fce94bc54c60fe38396f241603226501",
+            api_key: API_key,
             engine: "google_maps_reviews",
-            data_id: "0x89c259a61c75684f:0x79d31adb123348d2",
+            data_id: dataId,
             hl: "en"
           }, (json) => {
             console.log(json["reviews_results"]);
