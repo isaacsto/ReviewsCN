@@ -1,4 +1,4 @@
-document.getElementById('searchForm').addEventListener('submit', function (e) {
+/* document.getElementById('searchForm').addEventListener('submit', function (e) {
   e.preventDefault();
   const location = document.getElementById('locationInput').value;
   const keyword = document.getElementById('keywordInput').value;
@@ -30,3 +30,4 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
 });
 
 
+ */
