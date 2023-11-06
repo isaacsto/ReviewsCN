@@ -15,39 +15,7 @@
     </form>
     <div id="result"></div>
     <div id="result2"></div>
-    <script>
-document.getElementById('searchForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  const location = document.getElementById('locationInput').value;
-  const keyword = document.getElementById('keywordInput').value;
-
-  fetch(`http://localhost:3000/api/search?location=${location}&keyword=${keyword}`, {
-  method: 'GET',
-})
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-
-    if ('id' in data) {
-      const dataId = data.id; 
-      return fetch(`http://localhost:3000/api/search/google_maps_reviews?data_id=${dataId}`, {
-        method: 'GET',
-      });
-    } else {
-      console.error('Data ID not found in the JSON response');
-      throw new Error('Data ID not found'); 
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-});
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
 
