@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3000;
 
 // Enable CORS
 app.use((req, res, next) => {
@@ -17,12 +17,6 @@ app.use(express.json());
 //path to client folder 
 app.use(express.static(path.join(__dirname, '../client')));
 
-//path to js 
-/*app.get('/script.js', (req, res) => {
-  res.setHeader('Content-Type', 'text/javascript');
-  res.sendFile(path.join(__dirname, '../client/script.js'));
-}); */
-
 //path to html 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
@@ -37,10 +31,17 @@ const { getJson } = require("serpapi");
 app.get('/api/search', (req, res) => {
   try {
     getJson({
-      engine: "google_maps",
+      api_key: "48bca7f6206c2d414b2835e76cc154e8fce94bc54c60fe38396f241603226501",
+      engine: "google",
+      q: "Coffee",
+      location: "Austin, Texas, United States",
+      google_domain: "google.com",
+      gl: "us",
+      hl: "en"
+      /*
       api_key: API_key,
       q: req.query.keyword,
-      location: req.query.location,
+      location: req.query.location, */ 
     }, (json) => {
       console.log(json["reviews_results"]);
       //store data id in const 
@@ -51,14 +52,10 @@ app.get('/api/search', (req, res) => {
       app.get(`/api/search/google_maps_reviews`, (req, res) => {
         try {
           getJson({
+            api_key: "48bca7f6206c2d414b2835e76cc154e8fce94bc54c60fe38396f241603226501",
             engine: "google_maps_reviews",
-            reviews: "1",
-            gl: "us",
-            hl: "en",
-            data_id: dataId,
-            api_key: API_key,
-            q: req.query.keyword,
-            location: req.query.location,
+            data_id: "0x89c259a61c75684f:0x79d31adb123348d2",
+            hl: "en"
           }, (json) => {
             console.log(json["reviews_results"]);
             res.json(json); 
@@ -84,6 +81,21 @@ app.get('/api/search', (req, res) => {
   }
 });
 
+const { getJson } = require("serpapi");
+
+getJson({
+
+}, (json) => {
+  console.log(json);
+});
+
+const { getJson } = require("serpapi");
+
+getJson({
+ 
+}, (json) => {
+  console.log(json);
+});
 
 app.listen(port, () => {
   console.log(`Backend server is running on port ${port}`);
