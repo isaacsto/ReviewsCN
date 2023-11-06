@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const port = process.env.PORT || 3000;
 
 // Enable CORS
@@ -13,7 +14,8 @@ app.use((req, res, next) => {
 // parse JSON
 app.use(express.json());
 
-app.use(express.static('../client/index.html'));
+const staticDir = path.join(server, '../client/index.html');
+app.use(express.static(staticDir));
 
 require('dotenv').config(); 
 
