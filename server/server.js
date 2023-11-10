@@ -61,6 +61,7 @@ app.get('/api/search', (req, res) => {
 // Define a route for maps
 app.get('/api/search/google_maps', (req, res) => {
   const keyword = req.query.keyword;
+  console.log(keyword)
 
   getJson({
     api_key: "98e8f2836b0ffd54b90f528192f38e02e400243ebf00f803f4e411045fb3d8bb",
