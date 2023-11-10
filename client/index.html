@@ -31,7 +31,16 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
       console.log(data);
      
       const dataId = data.id;
-      
+
+//maps endpoint
+  fetch(`/api/search/google_maps?dataId`, {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+     
+    
       // fetch reviews
       fetch(`/api/search/google_maps_reviews?dataId=${dataId}`)
         .then(response => response.json())
@@ -46,7 +55,7 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
       console.error('Error fetching data:', error);
     });
 });
-
+}); 
   
 
     
