@@ -24,11 +24,11 @@ app.get('/', (req, res) => {
 });
 
 // Load API_key
-/*
+
 require('dotenv').config();
 const API_key = process.env.API_key;
 console.log(API_key);
-*/
+
 
 // Define a route for searching and fetching data
 app.get('/api/search', (req, res) => {
@@ -40,7 +40,7 @@ app.get('/api/search', (req, res) => {
   }
 
   getJson({
-    api_key: "98e8f2836b0ffd54b90f528192f38e02e400243ebf00f803f4e411045fb3d8bb",
+    api_key: "API_key",
     engine: "google",
     q: keyword,
     location: location,
@@ -86,7 +86,7 @@ app.get('/api/search/google_maps_reviews', (req, res) => {
   const dataId = req.query.dataId; 
 
   getJson({
-    api_key: "98e8f2836b0ffd54b90f528192f38e02e400243ebf00f803f4e411045fb3d8bb",
+    api_key: "API_KEY",
     engine: "google_maps_reviews",
     data_id: dataId,
     q: keyword, 
