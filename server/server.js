@@ -65,7 +65,7 @@ app.get("/api/search/google_maps", (req, res) => {
   console.log(keyword);
 
   getJson({
-    api_key: "98e8f2836b0ffd54b90f528192f38e02e400243ebf00f803f4e411045fb3d8bb",
+    api_key: API_key,
     engine: "google_maps",
     q: keyword,
     type: "search",
@@ -108,3 +108,4 @@ app.get("/api/search/google_maps_reviews", (req, res) => {
 app.listen(port, () => {
   console.log(`Backend server is running on port ${port}`);
 });
+
