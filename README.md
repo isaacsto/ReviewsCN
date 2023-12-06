@@ -1,5 +1,7 @@
 # Company Search Web App
 
+<img src="	https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />  <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white"/> <img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB"/>
+
 ## Overview
 
 This web application allows users to search for businesses in a specific location and retrieve information about them, including reviews. The application is built using HTML, JavaScript, Node.js, and the SERP API for fetching data.
