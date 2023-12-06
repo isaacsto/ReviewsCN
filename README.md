@@ -35,6 +35,7 @@ Ensure you have the following installed on your machine:
 2. Navigate to the project directory: 
     cd <project-directory>
 3. Install dependencies:
+   
     npm install
    
     npm i express
