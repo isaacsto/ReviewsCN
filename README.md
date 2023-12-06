@@ -36,8 +36,11 @@ Ensure you have the following installed on your machine:
     cd <project-directory>
 3. Install dependencies:
     npm install
+   
     npm i express
-    npm i path 
+   
+    npm i path
+   
     npm i dotenv 
 
 ## Usage
