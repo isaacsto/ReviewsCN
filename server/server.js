@@ -32,32 +32,6 @@ app.get("/", (req, res) => {
 const API_key = process.env.API_key;
 console.log(process.env);
 
-// Define a route for searching and fetching data
-app.get("/api/search", (req, res) => {
-  const location = req.query.location;
-  const keyword = req.query.keyword;
-
-  if (!location || !keyword) {
-    return res.status(400).json({ error: "Location and keyword are required" });
-  }
-
-  getJson({
-    api_key: API_key,
-    engine: "google",
-    q: keyword,
-    location: location,
-    google_domain: "google.com",
-    gl: "us",
-    hl: "en",
-  })
-    .then((json) => {
-      res.json(json);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).json({ error: "An error occurred while fetching data." });
-    });
-});
 
 // Define a route for maps
 app.get("/api/search/google_maps", (req, res) => {
@@ -108,4 +82,3 @@ app.get("/api/search/google_maps_reviews", (req, res) => {
 app.listen(port, () => {
   console.log(`Backend server is running on port ${port}`);
 });
-

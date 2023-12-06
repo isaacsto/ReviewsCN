@@ -23,23 +23,26 @@
       const location = document.getElementById('locationInput').value;
       const keyword = document.getElementById('keywordInput').value;
 
-      // Send the data to the first API endpoint
-      fetch(`/api/search?location=${location}&keyword=${keyword}`, {
+  
+      fetch(`/api/search/google_maps?dataId=${location}&keyword=${keyword}`, {
         method: 'GET'
       })
         .then(response => response.json())
         .then(data => {
           console.log(data);
 
-          const dataId = data.search_metadata.id;
+          const dataId = data.place_results.data_id;
 
-          //maps endpoint
-          getMap(dataId, keyword);
+          // fetch reviews
+          fetchReviews(dataId)
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
         });
     });
 
-    function fetchReviews(dataId, keyword) {
-      fetch(`/api/search/google_maps_reviews?dataId=${dataId}&keyword=${keyword}`)
+    function fetchReviews(dataId) {
+      fetch(`/api/search/google_maps_reviews?dataId=${dataId}`)
         .then(response => response.json())
         .then(reviewsData => {
           console.log(reviewsData);
@@ -49,22 +52,7 @@
         });
 
     }
-    function getMap(dataId, keyword) {
-      fetch(`/api/search/google_maps?dataId=${dataId}&keyword=${keyword}`, {
-        method: 'GET'
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
 
-
-          // fetch reviews
-          fetchReviews(dataId)
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-        });
-    }
 
 
   </script>
