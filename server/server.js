@@ -58,6 +58,7 @@ app.get("/api/search/google_maps", (req, res) => {
 app.get("/api/search/google_maps_reviews", (req, res) => {
   const keyword = req.query.keyword;
   const dataId = req.query.dataId;
+  const next_page_token = req.query.nextTokem; 
 
 
   getJson({
@@ -66,10 +67,12 @@ app.get("/api/search/google_maps_reviews", (req, res) => {
     data_id: dataId,
     q: keyword,
     hl: "en",
+    next_page_token: next_page_token? next_page_token : "", 
   })
     .then((reviewsJson) => {
-      console.log(reviewsJson["reviews_results"]);
-      res.json(reviewsJson);
+      const {reviews} = reviewsJson;
+      console.log(reviewsJson); 
+      res.json({reviews, next_page_token:reviewsJson.serpapi_pagination.next_page_token});
     })
     .catch((error) => {
       console.error(error);
@@ -78,6 +81,8 @@ app.get("/api/search/google_maps_reviews", (req, res) => {
         .json({ error: "An error occurred while fetching reviews data." });
     });
 });
+
+
 
 app.listen(port, () => {
   console.log(`Backend server is running on port ${port}`);

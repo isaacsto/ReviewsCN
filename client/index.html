@@ -18,6 +18,9 @@
   <div id="result2"></div>
   <script>
 
+    let nextToken = null;
+    let dataId = null; 
+
     document.getElementById('searchForm').addEventListener('submit', function (e) {
       e.preventDefault();
       const location = document.getElementById('locationInput').value;
@@ -31,10 +34,12 @@
         .then(data => {
           console.log(data);
 
-          const dataId = data.place_results.data_id;
+          dataId = data.place_results.data_id;
+          
 
           // fetch reviews
           fetchReviews(dataId)
+          
         })
         .catch(error => {
           console.error('Error fetching data:', error);
@@ -46,15 +51,24 @@
         .then(response => response.json())
         .then(reviewsData => {
           console.log(reviewsData);
+
+          nextToken = reviewsData.serpapi_pagination.next_page_token;
+        })
+          fetchNextPage(nextToken); 
+
+    };
+
+    function fetchNextPage(nextToken, dataId) {
+      fetch(`/api/search/google_maps_reviews?dataId=${dataId}?next_page_token=${nextToken}`)
+        .then(response => response.json())
+        .then(reviewsData => {
+          console.log(reviewsData);
         })
         .catch(error => {
           console.error('Error fetching reviews data:', error);
         });
 
-    }
-
-
-
+    };
   </script>
 </body>
 
