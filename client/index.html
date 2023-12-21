@@ -52,13 +52,18 @@
         .then(reviewsData => {
           console.log(reviewsData);
 
-          nextToken = reviewsData.serpapi_pagination.next_page_token;
-        })
+          nextToken = reviewsData.next_page_token;
           fetchNextPage(nextToken); 
+        })
+          
 
     };
 
-    function fetchNextPage(nextToken, dataId) {
+    function fetchNextPage(nextToken) {
+      nextToken = nextToken.split("");
+      nextToken.splice(nextToken.length-2,2);
+      nextToken = nextToken.join("");
+      console.log(nextToken)
       fetch(`/api/search/google_maps_reviews?dataId=${dataId}?next_page_token=${nextToken}`)
         .then(response => response.json())
         .then(reviewsData => {

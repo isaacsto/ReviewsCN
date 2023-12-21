@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
 // Load API_key
 
 const API_key = process.env.API_key;
-console.log(process.env);
+
 
 
 // Define a route for maps
@@ -58,7 +58,7 @@ app.get("/api/search/google_maps", (req, res) => {
 app.get("/api/search/google_maps_reviews", (req, res) => {
   const keyword = req.query.keyword;
   const dataId = req.query.dataId;
-  const next_page_token = req.query.nextTokem; 
+  const next_page_token = req.query.nextToken; 
 
 
   getJson({
@@ -71,8 +71,8 @@ app.get("/api/search/google_maps_reviews", (req, res) => {
   })
     .then((reviewsJson) => {
       const {reviews} = reviewsJson;
-      console.log(reviewsJson); 
-      res.json({reviews, next_page_token:reviewsJson.serpapi_pagination.next_page_token});
+      console.log("reviews",reviewsJson); 
+      res.json({reviews, next_page_token:reviewsJson?.serpapi_pagination?.next_page_token});
     })
     .catch((error) => {
       console.error(error);
