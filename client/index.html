@@ -82,19 +82,30 @@
     };
 
     function appendData(reviewsData) {
-      if (reviewsData && Array.isArray(reviewsData)) {
-      for (var i = 0; i < reviewsData.length; i++) {
-        console.log(reviewsData)
+  if (reviewsData && reviewsData.reviews && Array.isArray(reviewsData.reviews)) {
+    const reviews = reviewsData.reviews;
+
+    if (reviews.length > 0) {
+      for (let i = 0; i < reviews.length; i++) {
+        const reviewDiv = document.createElement("div");
+
+        const rating = reviews[i].rating;
+        const comment = reviews[i].snippet;
+
+        reviewDiv.innerHTML = `
+          <strong>Rating:</strong> ${rating} <br>
+          <strong>Comment:</strong> ${comment} <br> <br>
+        `;
+
+        document.getElementById('result2').appendChild(reviewDiv);
       }
+    } else {
+      console.warn('No reviews found in reviewsData:', reviewsData);
     }
-      var reviewDiv = document.createElement("div");
-
-      var rating = reviewsData[i].rating;
-      var comment = reviewsData[i].snippet;
-
-      reviewDiv.innerHTML = "<strong>Name:</strong> " + name + "<br><strong>Comment:</strong> " + comment + "<hr>";
-      document.body.appendChild(reviewDiv);
-    }
+  } else {
+    console.error('Unexpected data structure in reviewsData:', reviewsData);
+  }
+}
   
   </script>
 </body>
