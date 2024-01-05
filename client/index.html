@@ -81,7 +81,7 @@
 
     };
 
-    function appendData(reviewsData) {
+  function appendData(reviewsData) {
   if (reviewsData && reviewsData.reviews && Array.isArray(reviewsData.reviews)) {
     const reviews = reviewsData.reviews;
 
@@ -91,10 +91,12 @@
 
         const rating = reviews[i].rating;
         const comment = reviews[i].snippet;
+        const date = reviews[i].date;
 
         reviewDiv.innerHTML = `
-          <strong>Rating:</strong> ${rating} <br>
+          <br><strong>Rating:</strong> ${rating} <br> <br>
           <strong>Comment:</strong> ${comment} <br> <br>
+          <strong>Date:</strong> ${date} <br> <br> <br>
         `;
 
         document.getElementById('result2').appendChild(reviewDiv);
