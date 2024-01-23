@@ -67,6 +67,7 @@ app.get("/api/search/google_maps_reviews", (req, res) => {
     data_id: dataId,
     q: keyword,
     hl: "en",
+    sort_by: "newestFirst",
     next_page_token: next_page_token? next_page_token : "", 
   })
     .then((reviewsJson) => {

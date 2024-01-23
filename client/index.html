@@ -16,6 +16,7 @@
   </form>
   <div id="result"></div>
   <div id="result2"></div>
+  <button id="next-page">Next</button>
   <script>
 
     let nextToken = null;
@@ -54,7 +55,6 @@
           console.log(reviewsData);
 
           nextToken = reviewsData.next_page_token;
-          fetchNextPage(nextToken);
           appendData(reviewsData); 
         })
           .catch(error => {
@@ -63,7 +63,7 @@
           
     };
 
-    function fetchNextPage(nextToken) {
+    function fetchNextPage() {
 
       nextToken = nextToken.split("");
       nextToken.splice(nextToken.length-2,2);
@@ -73,7 +73,8 @@
       fetch(`/api/search/google_maps_reviews?dataId=${dataId}&next_page_token=${nextToken}`)
         .then(response => response.json())
         .then(reviewsData => {
-          console.log(reviewsData);
+          appendData(reviewsData);
+
         })
         .catch(error => {
           console.error('Error fetching reviews data:', error);
@@ -108,6 +109,11 @@
     console.error('Unexpected data structure in reviewsData:', reviewsData);
   }
 }
+
+
+document.getElementById('next-page').addEventListener('click', function() {
+    fetchNextPage();
+});
   
   </script>
 </body>
