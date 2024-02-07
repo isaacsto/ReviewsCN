@@ -152,3 +152,6 @@ const chartOptions = {
 document.getElementById('next-page').addEventListener('click', function () {
   fetchNextPage();
 });
+document.getElementById('next-page-top').addEventListener('click', function () {
+  fetchNextPage();
+});
