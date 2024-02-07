@@ -3,7 +3,8 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const port = process.env.PORT || 3000;
-const { getJson } = require("serpapi"); // Import getJson once
+const { getJson } = require("serpapi"); 
+
 
 // Enable CORS
 app.use((req, res, next) => {
@@ -20,7 +21,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Serve static files from "client"
-app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static(path.join(__dirname, "../client")));
 
 // Serve HTML file
 app.get("/", (req, res) => {
