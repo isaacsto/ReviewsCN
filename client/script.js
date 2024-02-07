@@ -1,9 +1,8 @@
-
-
 let nextToken = null;
 let dataId = null;
 let reviewsData = [];
-
+let chartData = [];
+let myChart; 
 
 document.getElementById('searchForm').addEventListener('submit', function (e) {
   e.preventDefault();
@@ -82,7 +81,7 @@ function appendData(reviewsData) {
       <strong>Date:</strong> ${date} <br> <br> <br>
     `;
 
-        document.getElementById('result2').appendChild(reviewDiv);
+        document.getElementById('result').appendChild(reviewDiv);
       }
     } else {
       console.warn('No reviews found in reviewsData:', reviewsData);
@@ -90,15 +89,18 @@ function appendData(reviewsData) {
   } else {
     console.error('Unexpected data structure in reviewsData:', reviewsData);
   } 
-  createLineChart(extractChartData(reviewsData));
+  const newReviews = reviewsData.reviews;
+  const newChartData = newReviews.map(review => ({
+      x: review.date,
+      y: review.rating,
+    }));
+    
+    chartData = chartData.concat(newChartData);
+    
+    clearCanvas();
+   
+    createLineChart(chartData);
 }
-
-
-document.getElementById('next-page').addEventListener('click', function () {
-  fetchNextPage();
-});
-
-
 
 function extractChartData(reviewsData) {
 
@@ -107,8 +109,19 @@ function extractChartData(reviewsData) {
     y: review.rating,
   }));
 }
+function clearCanvas() {
+  const canvas = document.getElementById('chart');
+  const context = canvas.getContext('2d');
+  context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 function createLineChart(chartData) {
-  console.log(chartData);
+  if (myChart) {
+   
+    myChart.destroy();
+  }
+  clearCanvas();
+   
   const ctx = document.getElementById('chart').getContext('2d');
 
 const chartOptions = {
@@ -117,7 +130,7 @@ const chartOptions = {
         beginAtZero: true
       },
         x: {
-            reverse: true  // This reverses the x-axis
+            reverse: true  
         }
     }
 };
@@ -135,3 +148,7 @@ const chartOptions = {
     options: chartOptions
   });
 }
+
+document.getElementById('next-page').addEventListener('click', function () {
+  fetchNextPage();
+});
