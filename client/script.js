@@ -111,6 +111,16 @@ function createLineChart(chartData) {
   console.log(chartData);
   const ctx = document.getElementById('chart').getContext('2d');
 
+const chartOptions = {
+    scales: {
+      y: {
+        beginAtZero: true
+      },
+        x: {
+            reverse: true  // This reverses the x-axis
+        }
+    }
+};
   new Chart(ctx, {
     type: 'line',
     data: {
@@ -122,12 +132,6 @@ function createLineChart(chartData) {
         fill: false,
       }],
     },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
+    options: chartOptions
   });
 }
