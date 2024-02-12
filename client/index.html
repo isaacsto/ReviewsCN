@@ -3,25 +3,35 @@
 
 <head>
   <title>Company Search</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 
 <body>
+  <header>
+    <img src="./assets/logo-contractor-nation-white.png" width="200"alt="Contractor Nation">
+  </header>
+  <div class="text">
   <h1>Search</h1>
+  <p>Fill out the zip code and name of your business</p>
+</div>
+
   <form id="searchForm">
     <label for="locationInput">Location:</label>
     <input type="text" id="locationInput" name="location" required><br>
     <label for="keywordInput">Business:</label>
     <input type="text" id="keywordInput" name="keyword" required><br>
     <button type="submit">Search</button>
+    <button id="next-page-top">Next</button>
   </form>
-  <button id="next-page-top">Next</button>
+
   <div>
     <canvas id="chart"></canvas>
   </div>
- 
+ <div id="results">
   <div id="result"></div> 
-  
-  <button id="next-page">Next</button>
+</div>
+</div>  
+  <!-- <button id="next-page">Next</button> -->
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="/script.js"></script>

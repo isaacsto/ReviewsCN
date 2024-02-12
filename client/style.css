@@ -1,0 +1,123 @@
+
+* {
+    margin: auto; 
+    font-family: sans-serif;
+    
+}
+header {
+    width: 100%;
+    box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.5);  
+    background-color: #091643;
+}
+header img {
+    padding: 50px;
+}
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #102a8b;
+    color: #ffffff;
+    box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.5);  
+    width: 100%; 
+}
+.text h1 {
+    padding: 10px; 
+}
+.text p {
+    padding: 10px; 
+}
+#searchForm {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: row;
+    gap: 10px; 
+    max-width: 60%; 
+    margin-top: 50px; 
+}
+
+h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+label {
+    font-size: 20px; 
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #102a8b;
+}
+
+input {
+    flex-grow: 1; 
+    padding: 2px 0; 
+}
+
+button {
+    outline: none;
+    border: solid 1px #102a8b;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #102a8b;
+    padding: 6px;
+    margin: 5px;
+    font-size: 15px;
+    box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);  
+}
+button:hover {
+    background-color: #102a8b;;
+    color: #f57505;
+}
+
+#results {
+    display: flex; 
+    flex: wrap; 
+    max-width: 20%; 
+    flex-direction: row; 
+}
+/* <!DOCTYPE html>
+<html>
+
+<head>
+  <title>Company Search</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+  <header>
+    <img src="./assets/logo-contractor-nation-white.png" width="200"alt="Contractor Nation">
+  </header>
+  <div class="text">
+  <h1>Search</h1>
+  <p>Fill out the zip code and name of your business</p>
+</div>
+  <form id="searchForm">
+    <label for="locationInput">Location:</label>
+    <input type="text" id="locationInput" name="location" required><br>
+    <label for="keywordInput">Business:</label>
+    <input type="text" id="keywordInput" name="keyword" required><br>
+    <button type="submit">Search</button>
+    <button id="next-page-top">Next</button>
+  </form>
+
+  <div>
+    <canvas id="chart"></canvas>
+  </div>
+ <div id="results">
+  <div id="result"></div> 
+</div>
+  
+  <!-- <button id="next-page">Next</button> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/script.js"></script>
+  
+
+</body>
+
+</html>
+
+</html>
+ */

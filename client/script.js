@@ -70,6 +70,7 @@ function appendData(reviewsData) {
     if (reviews.length > 0) {
       for (let i = 0; i < reviews.length; i++) {
         const reviewDiv = document.createElement("div");
+        reviewDiv.classList.add("review");
 
         const rating = reviews[i].rating;
         const comment = reviews[i].snippet;
@@ -140,7 +141,7 @@ const chartOptions = {
       datasets: [{
         label: 'Rating over Time',
         data: chartData,
-        borderColor: 'rgba(75, 192, 192, 1)',
+        borderColor: 'rgba(245, 117, 5, 1.0)',
         borderWidth: 1,
         fill: false,
       }],
@@ -149,9 +150,9 @@ const chartOptions = {
   });
 }
 
-document.getElementById('next-page').addEventListener('click', function () {
-  fetchNextPage();
-});
+// document.getElementById('next-page').addEventListener('click', function () {
+//   fetchNextPage();
+// });
 document.getElementById('next-page-top').addEventListener('click', function () {
   fetchNextPage();
 });
