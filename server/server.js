@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const port = process.env.PORT || 3000;
-const { getJson, config } = require("serpapi"); 
+const { getJson } = require("serpapi"); 
 
 
 // Enable CORS
@@ -59,9 +59,8 @@ app.get("/api/search/google_maps", (req, res) => {
 app.get("/api/search/google_maps_reviews", (req, res) => {
   const keyword = req.query.keyword;
   const dataId = req.query.dataId;
-  //const next_page_token = req.query.nextToken; 
-  const nextPageUrl = req.query.nextUrl;
-  console.log(req.query);
+  const next_page_token = req.query.nextToken; 
+
 
   getJson({
     api_key: API_key,
@@ -70,14 +69,12 @@ app.get("/api/search/google_maps_reviews", (req, res) => {
     q: keyword,
     hl: "en",
     sort_by: "newestFirst",
-    // next_page_token: next_page_token? next_page_token : "", 
+    next_page_token: next_page_token? next_page_token : "", 
   })
     .then((reviewsJson) => {
       const {reviews} = reviewsJson;
       console.log("reviews",reviewsJson); 
-      //res.json({reviews, next_page_token:reviewsJson?.serpapi_pagination?.next_page_token});
-      const nextUrl = new URL(reviewsJson.serpapi_pagination.next)
-      res.json({reviews, nextUrl })
+      res.json({reviews, next_page_token:reviewsJson?.serpapi_pagination?.next_page_token});
     })
     .catch((error) => {
       console.error(error);

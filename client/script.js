@@ -1,9 +1,8 @@
-let nextToken = "xyz";
+let nextToken = null;
 let dataId = null;
 let reviewsData = [];
 let chartData = [];
 let myChart; 
-let nextUrl = null;
 
 document.getElementById('searchForm').addEventListener('submit', function (e) {
   e.preventDefault();
@@ -35,9 +34,8 @@ function fetchReviews(dataId) {
     .then(response => response.json())
     .then(reviewsData => {
       console.log(reviewsData);
-      nextUrl = reviewsData.nextUrl;
 
-      // nextToken = reviewsData.next_page_token;
+      nextToken = reviewsData.next_page_token;
       appendData(reviewsData);
     })
     .catch(error => {
@@ -48,18 +46,16 @@ function fetchReviews(dataId) {
 
 function fetchNextPage() {
 
-  // nextToken = nextToken.split("");
-  // nextToken.splice(nextToken.length - 2, 2);
-  // nextToken = nextToken.join("");
-  // console.log(nextToken)
+  nextToken = nextToken.split("");
+  nextToken.splice(nextToken.length - 2, 2);
+  nextToken = nextToken.join("");
+  console.log(nextToken)
 
-  fetch(`/api/search/google_maps_reviews?dataId=${dataId}&next_page_token=${nextUrl}`)
+  fetch(`/api/search/google_maps_reviews?dataId=${dataId}&next_page_token=${nextToken}`)
     .then(response => response.json())
     .then(reviewsData => {
       appendData(reviewsData);
 
-      // nextToken = reviewsData.next_page_token;
-      nextUrl = reviewsData.nextUrl;
     })
     .catch(error => {
       console.error('Error fetching reviews data:', error);
@@ -101,6 +97,7 @@ function appendData(reviewsData) {
     
     chartData = chartData.concat(newChartData);
     
+    clearCanvas();
    
     createLineChart(chartData);
 }
@@ -112,14 +109,18 @@ function extractChartData(reviewsData) {
     y: review.rating,
   }));
 }
-
+function clearCanvas() {
+  const canvas = document.getElementById('chart');
+  const context = canvas.getContext('2d');
+  context.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 function createLineChart(chartData) {
   if (myChart) {
    
     myChart.destroy();
   }
-
+  clearCanvas();
    
   const ctx = document.getElementById('chart').getContext('2d');
 
@@ -133,7 +134,7 @@ const chartOptions = {
         }
     }
 };
-  myChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: 'line',
     data: {
       datasets: [{
