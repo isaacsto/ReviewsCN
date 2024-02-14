@@ -63,7 +63,6 @@ function appendData(reviewsData) {
         const reviewDiv = document.createElement("div");
         reviewDiv.classList.add("review-card");
 
-
         const rating = parseInt(reviews[i].rating);
         const comment = reviews[i].snippet;
         const date = reviews[i].date;
