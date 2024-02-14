@@ -2,7 +2,7 @@ let nextToken = null;
 let dataId = null;
 let reviewsData = [];
 let chartData = [];
-let myChart; 
+//let myChart; 
 let nextParams; 
 
 document.getElementById('searchForm').addEventListener('submit', function (e) {
@@ -85,16 +85,21 @@ function appendData(reviewsData) {
     if (reviews.length > 0) {
       for (let i = 0; i < reviews.length; i++) {
         const reviewDiv = document.createElement("div");
-        reviewDiv.classList.add("review");
+        reviewDiv.classList.add(`review${i + 1}`);
+
 
         const rating = reviews[i].rating;
         const comment = reviews[i].snippet;
         const date = reviews[i].date;
 
         reviewDiv.innerHTML = `
+        <div class="card-wrap">
+        <div class="card${i + 1}">
       <br><strong>Rating:</strong> ${rating} <br> <br>
       <strong>Comment:</strong> ${comment} <br> <br>
       <strong>Date:</strong> ${date} <br> <br> <br>
+      </div>
+      </div>
     `;
 
         document.getElementById('result').appendChild(reviewDiv);
@@ -105,69 +110,7 @@ function appendData(reviewsData) {
   } else {
     console.error('Unexpected data structure in reviewsData:', reviewsData);
   } 
-  const newReviews = reviewsData.reviews;
-  const newChartData = newReviews.map(review => ({
-      x: review.date,
-      y: review.rating,
-    }));
-    
-    chartData = chartData.concat(newChartData);
-    
-    //clearCanvas();
-   
-    createLineChart(chartData);
-}
 
-function extractChartData(reviewsData) {
-
-  return reviewsData.reviews.map(review => ({
-    x: review.date,
-    y: review.rating,
-  }));
-}
-// function clearCanvas() {
-//   const canvas = document.getElementById('chart');
-//   const context = canvas.getContext('2d');
-//   context.clearRect(0, 0, canvas.width, canvas.height);
-// }
-
-function createLineChart(chartData) {
-  if (myChart) {
-   
-    myChart.destroy();
-  }
-  //clearCanvas();
-   
-  const ctx = document.getElementById('chart').getContext('2d');
-
-const chartOptions = {
-    scales: {
-      y: {
-        beginAtZero: true
-      },
-        x: {
-            reverse: true  
-        }
-    }
-};
-myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      datasets: [{
-        label: 'Rating over Time',
-        data: chartData,
-        borderColor: 'rgba(245, 117, 5, 1.0)',
-        borderWidth: 1,
-        fill: false,
-      }],
-    },
-    options: chartOptions
-  });
-}
-
-// document.getElementById('next-page').addEventListener('click', function () {
-//   fetchNextPage();
-// });
 document.getElementById('next-page-top').addEventListener('click', function () {
   fetchNextPage();
 });

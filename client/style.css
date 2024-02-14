@@ -89,6 +89,18 @@ button:hover {
     max-width: 20%; 
     flex-direction: row; 
     padding: 20px;
+    /* color: #ffffff; */
+}
+.card-wrap {
+    display: flex; 
+    flex-direction: row; 
+    margin: 10px; 
+}
+.card {
+    background-color: #ffffff;
+    color: #102a8b;
+    display: flex; 
+    flex-direction: column; 
 }
 
 footer {
@@ -105,3 +117,4 @@ footer {
 footer p {
     color: #545353;
 }
+
