@@ -82,20 +82,12 @@ button:hover {
     background-color: #FF7F30;
 }
 
-#results {
-    display: flex; 
-    flex: wrap; 
-    max-width: 20%; 
-    flex-direction: row; 
-    padding: 20px;
-    /* color: #ffffff; */
-}
-
 .grid-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr); 
     grid-gap: 20px; 
     padding: 20px;
+    width: 80%; 
   }
   
   .review-card {
@@ -107,6 +99,13 @@ button:hover {
     margin: 20px; 
     color: #ffffff;
     text-align: center;
+  }
+  .review-card:hover {
+    background-color: #0234ea
+  }
+
+  .accordion {
+    cursor: pointer;
   }
 
   .panel {

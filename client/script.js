@@ -76,7 +76,7 @@ function appendData(reviewsData) {
         const starPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         starPath.setAttribute("d", "M12 2 L14.26 8.15 L21.56 9.24 L16.72 14.21 L17.82 21.51 L12 18.77 L6.18 21.51 L7.28 14.21 L2.44 9.24 L9.74 8.15 Z");
         starPath.setAttribute("fill", "#FF7F30");
-
+        
         starSVG.appendChild(starPath);
 
         let starsHTML = '';
@@ -103,8 +103,32 @@ function appendData(reviewsData) {
   } else {
     console.error('Unexpected data structure in reviewsData:', reviewsData);
   }
+}
 
-  function replaceData(reviewsData) {
+function fetchNextPage() {
+  const resultContainer = document.getElementById('result');
+  resultContainer.innerHTML = '';
+
+  fetch(`/api/search/google_maps_reviews?dataId=${dataId}&next_page_token=${nextToken}`, {
+    method: "post",
+    body: JSON.stringify({ nextParams }),
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+    .then(response => response.json())
+    .then(reviewsData => {
+      nextToken = reviewsData.next_page_token;
+      replaceData(reviewsData);
+
+    })
+    .catch(error => {
+      console.error('Error fetching reviews data:', error);
+    });
+
+};
+
+function replaceData(reviewsData) {
     const resultContainer = document.getElementById('result');
     resultContainer.innerHTML = '';
 
@@ -125,20 +149,21 @@ function appendData(reviewsData) {
           starSVG.setAttribute("viewBox", "0 0 24 24");
           starSVG.setAttribute("width", "24");
           starSVG.setAttribute("height", "24");
-
+  
           const starPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
           starPath.setAttribute("d", "M12 2 L14.26 8.15 L21.56 9.24 L16.72 14.21 L17.82 21.51 L12 18.77 L6.18 21.51 L7.28 14.21 L2.44 9.24 L9.74 8.15 Z");
           starPath.setAttribute("fill", "#FF7F30");
+         
+        starSVG.appendChild(starPath);
 
-          starSVG.appendChild(starPath);
+        let starsHTML = '';
+        for (let j = 0; j < rating; j++) {
+          starsHTML += starSVG.outerHTML;
+        }
 
-          let starsHTML = '';
-          for (let j = 0; j < rating; j++) {
-            starsHTML += starSVG.outerHTML;
-          }
           reviewDiv.innerHTML = `
           <div class="accordion">
-          <br><strong>${starsHTML}</strong><br> <br>
+          <br><strong>${starsHTML} </strong> <br> <br>
            <p>${date}</p> <br> <br> <br>
            </div>
            <div class="panel">
@@ -146,7 +171,6 @@ function appendData(reviewsData) {
            </div>
         `;
           
-
           resultContainer.appendChild(reviewDiv);
           accordion()
         }
@@ -158,31 +182,7 @@ function appendData(reviewsData) {
     }
   }
 
-  function fetchNextPage() {
 
-    // nextToken = nextToken.split("");
-    // nextToken.splice(nextToken.length - 2, 2);
-    // nextToken = nextToken.join("");
-    // console.log(nextToken)
-
-    fetch(`/api/search/google_maps_reviews?dataId=${dataId}&next_page_token=${nextToken}`, {
-      method: "post",
-      body: JSON.stringify({ nextParams }),
-      headers: {
-        "Content-Type": "application/json",
-      }
-    })
-      .then(response => response.json())
-      .then(reviewsData => {
-        nextToken = reviewsData.next_page_token;
-        replaceData(reviewsData);
-
-      })
-      .catch(error => {
-        console.error('Error fetching reviews data:', error);
-      });
-
-  };
 
 function accordion() {
   var acc = document.getElementsByClassName("accordion");
@@ -206,4 +206,3 @@ function accordion() {
   document.getElementById('next-page-top').addEventListener('click', function () {
     fetchNextPage();
   });
-}
