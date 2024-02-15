@@ -47,10 +47,22 @@ h2 {
     display: flex;
     justify-content: center; 
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px; 
-    max-width: 60%; 
     margin-top: 20px; 
+}
+.form-fields {
+    display: flex;
+    flex: wrap; 
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px; 
+}
+.buttons {
+    display: flex; 
+    flex-direction: row; 
+    gap: 10px; 
+
 }
 
 label {
@@ -85,23 +97,71 @@ button:hover {
     background-color: #FF7F30;
    
 }
+@media screen and (max-width: 1000px) {
+    #searchForm {
+        flex-direction: column;
+        gap: 10px; 
+        
+    }
+    .form-fields {
+        display: flex;
+        flex-direction: row; 
+    }
+    .buttons {
+        display: flex; 
+        flex-direction: row; 
+    }
+    label {
+        font-size: 20px; 
+    }
+}
+@media screen and (max-width: 715px) {
+    #search-form {
+        display: flex; 
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 600px) {
+    .form-fields {
+        display: flex;
+        flex-direction: column; 
+    }
+
+}
+@media screen and (max-width: 600px) {
+    .buttons {
+        display: flex; 
+        flex-direction: column;     
+    }
+}
 
 .grid-container {
+    margin-top: 2rem; 
     display: grid;
     grid-template-columns: repeat(5, 1fr); 
-    grid-gap: 10px; 
+    grid-gap: 3.5rem;  
     padding: 20px;
-    width: 80%; 
+    width: 85%; 
   }
-  
+@media screen and (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); 
+        grid-template-rows: repeat(5, 1fr);
+    }
+}
+@media screen and (max-width: 500px) {
+    .grid-container {
+        grid-template-columns: repeat(1, 1fr); 
+        grid-template-rows: repeat(10, 1fr);
+    }
+}
   .review-card {
     border: 4px double #ffffff;
-    border-spacing: 10px; 
     border-radius: 7px;
     padding: 10px 20px; 
     width: 80%;
     background-color: #102a8b;
-    margin: 20px; 
+    gap: 3.5rem;
     color: #ffffff;
     text-align: center;
   }
