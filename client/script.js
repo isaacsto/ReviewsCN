@@ -127,11 +127,7 @@ function fetchNextPage() {
   })
     .then(response => response.json())
     .then(reviewsData => {
-      const previousReviewsData = JSON.parse(localStorage.getItem('reviewsData'));
-
-      localStorage.setItem('previousReviewsData', JSON.stringify(previousReviewsData));
-      localStorage.setItem('reviewsData', JSON.stringify(reviewsData));
-
+    
       nextToken = reviewsData.next_page_token;
       console.log(nextToken);
       replaceData(reviewsData);
@@ -151,18 +147,31 @@ function replaceData(reviewsData) {
   }
 }
 
+function fetchPrevPage(previousReviewsData) {  
+  const resultContainer = document.getElementById('result');
+  resultContainer.innerHTML = '';
+
+  previousReviewsData = JSON.parse(localStorage.getItem('reviewsData'));
+
+  if (previousReviewsData && previousReviewsData.reviews && Array.isArray(previousReviewsData.reviews)) {
+    appendPrevData(previousReviewsData);
+  } else {
+    console.error('No previous reviews data found');
+  }
+
+}
 
 function appendPrevData(previousReviewsData) {
   const resultContainer = document.getElementById('result');
   resultContainer.innerHTML = '';
 
-  previousReviewsData = JSON.parse(localStorage.getItem('previousReviewsData'));
+  previousReviewsData = JSON.parse(localStorage.getItem('reviewsData'));
 
   if ((previousReviewsData && previousReviewsData.reviews && Array.isArray(previousReviewsData.reviews))) {
     const previousReviews = previousReviewsData.reviews;
 
     if (previousReviews.length > 0) {
-      for (let i = 0; i < previousReviews.length; i++) {
+      for (let i = 0; i < 10; i++) {
         const prevReviewDiv = document.createElement("div");
         prevReviewDiv.classList.add("review-card");
 
@@ -219,20 +228,10 @@ function appendPrevData(previousReviewsData) {
 }
 
 
-
-function fetchPreviousPage() {
-  if (newDataFetched && previousReviewsData) {
-    appendPrevData(previousReviewsData);
-  } else {
-    console.error('No previous reviews data found');
-  }
-
-}
-
 document.getElementById('next-page-top').addEventListener('click', function () {
   fetchNextPage();
 });
 
 document.getElementById('back-button').addEventListener('click', function () {
-  fetchPreviousPage();
+  fetchPrevPage();
 });

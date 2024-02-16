@@ -81,7 +81,7 @@ input {
 } */
 button {
     outline: none;
-    border: solid 1px #102a8b;
+    border: solid 2px #102a8b;
     border-radius: 5px;
     background-color: #102a8b;
     color: #ffffff; 
@@ -93,9 +93,12 @@ button {
     
 }
 button:hover {
-    border: solid 1px #FF7F30;
+    border: solid 2px #FF7F30;
     background-color: #FF7F30;
    
+}
+button#submit{
+    padding: 6px 50px; 
 }
 @media screen and (max-width: 1000px) {
     #searchForm {
@@ -121,17 +124,29 @@ button:hover {
         flex-direction: column;
     }
 }
-@media screen and (max-width: 600px) {
-    .form-fields {
-        display: flex;
-        flex-direction: column; 
+@media screen and (max-width: 500px) {
+    h1 {
+        font-size: 40px; 
+    }
+    h2{
+        font-size: 20px; 
+    }
+    input {
+        width: 60%; 
     }
 
 }
 @media screen and (max-width: 600px) {
-    .buttons {
-        display: flex; 
-        flex-direction: column;     
+    .form-fields label {
+        font-size: 15px
+    }
+    button {
+        font-size:14px; 
+        padding: 6px 10px;    
+    }
+    button#submit{
+        font-size: 14px; 
+        padding: 6px 10px; 
     }
 }
 
