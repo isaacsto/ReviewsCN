@@ -28,7 +28,10 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
 });
 
 function saveToLocalStorage(data) {
-  const reviews = loadFromLocalStorage();
+  let reviews = loadFromLocalStorage();
+  if (!Array.isArray(reviews)) {
+    reviews = []; 
+  }
   reviews.push(data);
   localStorage.setItem('reviewsData', JSON.stringify(reviews));
 }
@@ -56,17 +59,7 @@ function fetchReviews(dataId) {
     .then(response => response.json())
     .then(reviewsData => {
       console.log(reviewsData);
-      // localStorage.setItem('reviewsData', JSON.stringify(reviewsData));
-      // previousReviewsData = JSON.parse(localStorage.getItem('reviewsData'));
-
-      // nextToken = reviewsData.next_page_token;
-      // nextParams = reviewsData.nextParams;
-      // appendData(reviewsData);
-      // if (previousReviewsData) {
-      //  // appendPrevData(previousReviewsData);
-      // }
-      //localStorage.setItem('reviewsData', JSON.stringify(reviewsData));
-     // previousReviewsData = reviewsData;
+     
       nextToken = reviewsData.next_page_token;
       nextParams = reviewsData.nextParams;
       appendData(reviewsData);
@@ -153,10 +146,7 @@ function fetchNextPage() {
   })
     .then(response => response.json())
     .then(reviewsData => {
-      //const previousReviewsData = JSON.parse(localStorage.getItem('reviewsData'));
-
-      // localStorage.setItem('previousReviewsData', JSON.stringify(previousReviewsData));
-      // localStorage.setItem('reviewsData', JSON.stringify(reviewsData));
+  
 
       nextToken = reviewsData.next_page_token;
       console.log(nextToken);
@@ -247,13 +237,6 @@ function appendPrevData(previousReviewsData) {
 
 
 function fetchPreviousPage() {
-  // previousReviewsData = JSON.parse(localStorage.getItem('previousReviewsData'));
-  // if (previousReviewsData) {
-  //   localStorage.setItem('previousReviewsData', JSON.stringify(previousReviewsData));
-  //   appendPrevData(previousReviewsData);
-  // } else {
-  //   console.error('No reviews data found in local storage');
-  // }
   if (newDataFetched && previousReviewsData) {
     appendPrevData(previousReviewsData);
   } else {
