@@ -4,6 +4,7 @@ let reviewsData = [];
 let previousReviewsData = [];
 let nextParams;
 let newDataFetched = false;
+let currentIndex = 0; 
 
 document.getElementById('searchForm').addEventListener('submit', function (e) {
   e.preventDefault();
@@ -26,6 +27,23 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
     });
 });
 
+function saveToLocalStorage(data) {
+  const reviews = loadFromLocalStorage();
+  reviews.push(data);
+  localStorage.setItem('reviewsData', JSON.stringify(reviews));
+}
+
+function loadFromLocalStorage() {
+  return JSON.parse(localStorage.getItem('reviewsData')) || [];
+}
+
+function getReviewsByIndex(){
+  const reviews = loadFromLocalStorage();
+  if (reviews.length > 0) {
+    const review = reviews[currentIndex];
+    appendData(review);
+  }
+}
 
 function fetchReviews(dataId) {
   fetch(`/api/search/google_maps_reviews?dataId=${dataId}`, {
@@ -44,15 +62,15 @@ function fetchReviews(dataId) {
       // nextToken = reviewsData.next_page_token;
       // nextParams = reviewsData.nextParams;
       // appendData(reviewsData);
-      if (previousReviewsData) {
-        appendPrevData(previousReviewsData);
-      }
-      localStorage.setItem('reviewsData', JSON.stringify(reviewsData));
-      previousReviewsData = reviewsData;
+      // if (previousReviewsData) {
+      //  // appendPrevData(previousReviewsData);
+      // }
+      //localStorage.setItem('reviewsData', JSON.stringify(reviewsData));
+     // previousReviewsData = reviewsData;
       nextToken = reviewsData.next_page_token;
       nextParams = reviewsData.nextParams;
       appendData(reviewsData);
-      newDataFetched = true;
+      //newDataFetched = true;
     })
     .catch(error => {
       console.error('Error fetching reviews data:', error);
@@ -135,15 +153,15 @@ function fetchNextPage() {
   })
     .then(response => response.json())
     .then(reviewsData => {
-      const previousReviewsData = JSON.parse(localStorage.getItem('reviewsData'));
+      //const previousReviewsData = JSON.parse(localStorage.getItem('reviewsData'));
 
-      localStorage.setItem('previousReviewsData', JSON.stringify(previousReviewsData));
-      localStorage.setItem('reviewsData', JSON.stringify(reviewsData));
+      // localStorage.setItem('previousReviewsData', JSON.stringify(previousReviewsData));
+      // localStorage.setItem('reviewsData', JSON.stringify(reviewsData));
 
       nextToken = reviewsData.next_page_token;
       console.log(nextToken);
-      replaceData(reviewsData);
-
+      appendData(reviewsData);
+      saveToLocalStorage(reviewsData);
     })
     .catch(error => {
       console.error('Error fetching reviews data:', error);
@@ -249,5 +267,5 @@ document.getElementById('next-page-top').addEventListener('click', function () {
 });
 
 document.getElementById('back-button').addEventListener('click', function () {
-  fetchPreviousPage();
+ getReviewsByIndex();
 });
