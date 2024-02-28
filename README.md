@@ -76,6 +76,7 @@ Method: GET
 Parameters:
 dataId: Data ID obtained from the Google Maps search.
 keyword: Business keyword for the reviews.
+**Note:** For fetching multiple pages of results, you will need to use a next page token obtained from the response of the initial request.
 
 ## Client-Side
 The client-side is a simple HTML and JavaScript application. The search form allows users to input a location and business keyword, triggering a request to the server for search results.
