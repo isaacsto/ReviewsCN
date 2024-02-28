@@ -1,56 +1,74 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Company Search</title>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+    <script
+      src="https://kit.fontawesome.com/1498603cf1.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<head>
-  <title>Company Search</title>
-  <link rel="stylesheet" type="text/css" href="/style.css">
-  <link rel="icon" type="image/png" href="./assets/favicon.png">
-  <script src="https://kit.fontawesome.com/1498603cf1.js" crossorigin="anonymous"></script>
-</head>
+  <body>
+    <header>
+      <a href="https://www.contractornation.com/"
+        ><img
+          class="logo"
+          src="./assets/logo-contractor-nation-white.png"
+          width="200"
+          alt="Contractor Nation"
+      /></a>
+      <a href="https://www.treehousemarketing.com/"
+        ><img
+          src="assets/th-marketing-logo-2021.svg"
+          width="100"
+          alt="TH Marketing"
+      /></a>
+      <a href="https://www.contractornation.com/app/?module=cms"
+        ><img
+          class="icon"
+          src="./assets/CN-icon.png"
+          width="50"
+          alt="CMS link"
+        />
+      </a>
+    </header>
 
-<body>
-  <header>
-    <a href="https://www.contractornation.com/"><img class="logo" src="./assets/logo-contractor-nation-white.png" width="200"alt="Contractor Nation"></a>
-    <a href="https://www.treehousemarketing.com/"><img src="assets/th-marketing-logo-2021.svg" width="100" alt="TH Marketing"></a>
-    <a href="https://www.contractornation.com/app/?module=cms"><img class="icon" src="./assets/CN-icon.png" width="50" alt="CMS link"> </a>
-  </header>
- 
-  <div class="text">
-  <h1>Reviews Search</h1>
+    <div class="text">
+      <h1>Reviews Search</h1>
+    </div>
+    <h2>
+      Fill out the zip code and name of your business for the most recent
+      ratings and reviews:
+    </h2>
 
-</div>
-<h2>Fill out the zip code and name of your business for the most recent ratings and reviews:</h2>
+    <form id="searchForm">
+      <div class="form-fields">
+        <label for="locationInput">Location:</label>
+        <input type="text" id="locationInput" name="location" required /><br />
+        <label for="keywordInput">Business:</label>
+        <input type="text" id="keywordInput" name="keyword" required /><br />
+      </div>
+      <div class="buttons">
+        <button id="back-button" type="button">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </button>
+        <button id="submit" type="submit">Search</button>
+        <button id="next-page-top">
+          Next <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </form>
+    <div class="result-wrap">
+      <div id="result" class="grid-container"></div>
+    </div>
 
-  <form id="searchForm">
-   <div class="form-fields">
-    <label for="locationInput">Location:</label>
-    <input type="text" id="locationInput" name="location" required><br>
-    <label for="keywordInput">Business:</label>
-    <input type="text" id="keywordInput" name="keyword" required><br>
-  </div>
-    <div class="buttons">
-      <button id="back-button"><i class="fa-solid fa-arrow-left"></i> Back</button>
-      <button id="submit" type="submit">Search</button>
-    <button id="next-page-top">Next <i class="fa-solid fa-arrow-right"></i></button>
-  </div>
-  </form>
-  <div class="result-wrap">
-  <div id="result" class="grid-container"></div> 
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/script.js"></script>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="/script.js"></script>
-
-
-
-   
-  <footer>
-    <p>© 2021 Contractor Nation</p>
-      
-      </footer> 
-
-</body>
-
+    <footer>
+      <p>© 2021 Contractor Nation</p>
+    </footer>
+  </body>
 </html>
-
