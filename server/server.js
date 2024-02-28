@@ -20,12 +20,12 @@ app.use((req, res, next) => {
 // Parse JSON
 app.use(express.json());
 
-// Serve static files from "client"
-app.use(express.static(path.join(__dirname, "../client")));
+// Serve static files from root
+app.use(express.static(path.join(__dirname, "../")));
 
 // Serve HTML file
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/index.html")); // Adjust the path
+  res.sendFile(path.join(__dirname, "../index.html")); // Adjust the path
 });
 
 // Load API_key
