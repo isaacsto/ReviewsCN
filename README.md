@@ -82,4 +82,4 @@ keyword: Business keyword for the reviews.
 The client-side is a simple HTML and JavaScript application. The search form allows users to input a location and business keyword, triggering a request to the server for search results.
 
 ## License 
-This project is licensed under the MIT License.
+This project is licensed under the Apache 2.0 License. 
