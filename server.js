@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "/")));
 
 // Serve HTML file
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/index.html")); // Adjust the path
+  res.sendFile(path.join(__dirname, "index.html")); 
 });
 
 // Load API_key
