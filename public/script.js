@@ -23,7 +23,7 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
         dataId = data.local_results[0].data_id;
       }
       // fetch reviews
-      fetchReviews(dataIs); 
+      fetchReviews(dataId); 
 
     })
   
