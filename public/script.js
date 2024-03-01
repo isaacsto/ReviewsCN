@@ -19,11 +19,11 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
 
       if (data.place_results) {
         dataId = data.place_results.data_id;
-      } else {
-        dataId = data.local_results.place_id;
+      } else if (data.local_results) {
+        dataId = data.local_results.data_id;
       }
       // fetch reviews
-      fetchReviews(dataId)
+      fetchReviews(dataIs); 
 
     })
   
