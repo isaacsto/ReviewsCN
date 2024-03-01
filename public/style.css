@@ -6,7 +6,6 @@
 }
 body {
     background-color: #091643; 
-    height: 100vh; 
 }
 header {
     width: 100%;
@@ -152,7 +151,6 @@ button#submit{
 }
 
 .result-wrap {
-    margin-top: 1rem; 
     padding-top: 1rem; 
     margin-bottom: 3rem; 
     padding-bottom: 3rem; 
@@ -182,7 +180,6 @@ button#submit{
     padding: 10px 20px; 
     width: 80%;
     background-color: #102a8b;
-    gap: 3.5rem;
     color: #ffffff;
     text-align: center;
   }

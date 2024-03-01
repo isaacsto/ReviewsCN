@@ -21,11 +21,11 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Serve static files from root
-app.use(express.static(path.join(__dirname, "../")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Serve HTML file
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../index.html")); // Adjust the path
+  res.sendFile(path.join(__dirname, "public/index.html")); // Adjust the path
 });
 
 // Load API_key
