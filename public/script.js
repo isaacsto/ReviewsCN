@@ -74,7 +74,7 @@ function fetchReviews(dataId) {
       nextParams = reviewsData.nextParams;
       appendData(reviewsData);
       saveToLocalStorage(reviewsData);
-      //newDataFetched = true;
+      
     })
     .catch(error => {
       console.error('Error fetching reviews data:', error);
@@ -89,7 +89,6 @@ function appendData(reviewsData) {
 
   if ((reviewsData && reviewsData.reviews && Array.isArray(reviewsData.reviews))) {
     const reviews = reviewsData.reviews;
-    console.log(reviews);
 
     if (reviews.length > 0) {
       for (let i = 0; i < reviews.length; i++) {
