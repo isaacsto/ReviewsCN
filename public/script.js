@@ -8,6 +8,8 @@ let currentIndex = 0;
 
 document.getElementById('searchForm').addEventListener('submit', function (e) {
   e.preventDefault();
+  localStorage.removeItem('reviewsData');
+  nextToken = null;
   const location = document.getElementById('locationInput').value;
   const keyword = document.getElementById('keywordInput').value;
   fetch(`/api/search/google_maps?dataId=${location}&keyword=${keyword}`, {
