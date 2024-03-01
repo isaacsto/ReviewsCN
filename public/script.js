@@ -20,7 +20,7 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
       if (data.place_results) {
         dataId = data.place_results.data_id;
       } else if (data.local_results) {
-        dataId = data.local_results.data_id;
+        dataId = data.local_results[0].data_id;
       }
       // fetch reviews
       fetchReviews(dataIs); 
