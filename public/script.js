@@ -17,11 +17,16 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
     .then(data => {
       console.log(data);
 
-      dataId = data.place_results.data_id || local_results.place_id;
+      if (data.place_results) {
+        dataId = data.place_results.data_id;
+      } else {
+        dataId = data.local_results.place_id;
+      }
       // fetch reviews
       fetchReviews(dataId)
 
     })
+  
     .catch(error => {
       console.error('Error fetching data:', error);
     });
