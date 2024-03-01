@@ -17,7 +17,7 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
     .then(data => {
       console.log(data);
 
-      dataId = data.place_results.data_id;
+      dataId = data.place_results.data_id || local_results.place_id;
       // fetch reviews
       fetchReviews(dataId)
 
