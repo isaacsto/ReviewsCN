@@ -22,7 +22,12 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
       if (data.place_results) {
         dataId = data.place_results.data_id;
       } else if (data.local_results) {
-        dataId = data.local_results[0].data_id;
+        for (i = 0; i < data.local_results.length; i++) {
+          if (data.local_results[i].title === keyword) {
+            dataId = data.local_results[i].data_id;
+            break;
+          }
+        }
       }
       // fetch reviews
       fetchReviews(dataId); 
@@ -143,7 +148,7 @@ function appendData(reviewsData) {
       console.warn('No reviews found in reviewsData:', reviewsData);
     }
   } else {
-    console.error('Unexpected data structure in reviewsData:', reviewsData);
+    displayNoReviewsMessage(); 
   }
 }
 
@@ -159,6 +164,7 @@ function fetchNextPage() {
     .then(reviewsData => {
   
 
+  
       nextToken = reviewsData.next_page_token;
       console.log(nextToken);
       appendData(reviewsData);
@@ -170,6 +176,10 @@ function fetchNextPage() {
     });
 
 };
+function displayNoReviewsMessage() {
+  const reviewsContainer = document.getElementById('result');
+  reviewsContainer.innerHTML = '<p>No reviews available.</p>';
+}
 
 function replaceData(reviewsData) {
   if ((reviewsData && reviewsData.reviews && Array.isArray(reviewsData.reviews))) {
@@ -180,71 +190,71 @@ function replaceData(reviewsData) {
 }
 
 
-function appendPrevData(previousReviewsData) {
-  const resultContainer = document.getElementById('result');
-  resultContainer.innerHTML = '';
+// function appendPrevData(previousReviewsData) {
+//   const resultContainer = document.getElementById('result');
+//   resultContainer.innerHTML = '';
 
-  previousReviewsData = JSON.parse(localStorage.getItem('previousReviewsData'));
+//   previousReviewsData = JSON.parse(localStorage.getItem('previousReviewsData'));
 
-  if ((previousReviewsData && previousReviewsData.reviews && Array.isArray(previousReviewsData.reviews))) {
-    const previousReviews = previousReviewsData.reviews;
+//   if ((previousReviewsData && previousReviewsData.reviews && Array.isArray(previousReviewsData.reviews))) {
+//     const previousReviews = previousReviewsData.reviews;
 
-    if (previousReviews.length > 0) {
-      for (let i = 0; i < previousReviews.length; i++) {
-        const prevReviewDiv = document.createElement("div");
-        prevReviewDiv.classList.add("review-card");
+//     if (previousReviews.length > 0) {
+//       for (let i = 0; i < previousReviews.length; i++) {
+//         const prevReviewDiv = document.createElement("div");
+//         prevReviewDiv.classList.add("review-card");
 
-        const rating = parseInt(previousReviewsData.reviews[i].rating);
-        const comment = previousReviewsData.reviews[i].snippet || "No comment provided";
-        const date = previousReviewsData.reviews[i].date;
-        //reviews - star svg 
-        const starSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        starSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        starSVG.setAttribute("viewBox", "0 0 24 24");
-        starSVG.setAttribute("width", "24");
-        starSVG.setAttribute("height", "24");
+//         const rating = parseInt(previousReviewsData.reviews[i].rating);
+//         const comment = previousReviewsData.reviews[i].snippet || "No comment provided";
+//         const date = previousReviewsData.reviews[i].date;
+//         //reviews - star svg 
+//         const starSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+//         starSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+//         starSVG.setAttribute("viewBox", "0 0 24 24");
+//         starSVG.setAttribute("width", "24");
+//         starSVG.setAttribute("height", "24");
 
-        const starPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        starPath.setAttribute("d", "M12 2 L14.26 8.15 L21.56 9.24 L16.72 14.21 L17.82 21.51 L12 18.77 L6.18 21.51 L7.28 14.21 L2.44 9.24 L9.74 8.15 Z");
-        starPath.setAttribute("fill", "#FF7F30");
+//         const starPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+//         starPath.setAttribute("d", "M12 2 L14.26 8.15 L21.56 9.24 L16.72 14.21 L17.82 21.51 L12 18.77 L6.18 21.51 L7.28 14.21 L2.44 9.24 L9.74 8.15 Z");
+//         starPath.setAttribute("fill", "#FF7F30");
 
-        starSVG.appendChild(starPath);
+//         starSVG.appendChild(starPath);
 
-        let starsHTML = '';
-        for (let j = 0; j < rating; j++) {
-          starsHTML += starSVG.outerHTML;
-        }
+//         let starsHTML = '';
+//         for (let j = 0; j < rating; j++) {
+//           starsHTML += starSVG.outerHTML;
+//         }
 
-        prevReviewDiv.innerHTML = `
-        <div class="accordion">
-        <br><strong>${starsHTML} </strong> <br> <br>
-         <p>${date}</p> <br> <br> <br>
-         </div>
-         <div class="panel">
-         <p>${comment}</p> <br> <br>
-         </div>
-         `;
-        //js for accordion
-        document.getElementById('result').appendChild(prevReviewDiv);
-        prevReviewDiv.querySelector('.accordion').addEventListener('click', function () {
-          this.classList.toggle("active");
-          var panel = this.nextElementSibling;
-          if (panel.style.display === "block") {
-            panel.style.display = "none";
-          } else {
-            panel.style.display = "block";
-          }
-        });
+//         prevReviewDiv.innerHTML = `
+//         <div class="accordion">
+//         <br><strong>${starsHTML} </strong> <br> <br>
+//          <p>${date}</p> <br> <br> <br>
+//          </div>
+//          <div class="panel">
+//          <p>${comment}</p> <br> <br>
+//          </div>
+//          `;
+//         //js for accordion
+//         document.getElementById('result').appendChild(prevReviewDiv);
+//         prevReviewDiv.querySelector('.accordion').addEventListener('click', function () {
+//           this.classList.toggle("active");
+//           var panel = this.nextElementSibling;
+//           if (panel.style.display === "block") {
+//             panel.style.display = "none";
+//           } else {
+//             panel.style.display = "block";
+//           }
+//         });
 
-      }
-      newDataFetched = true;
-    } else {
-      console.warn('No reviews found in reviewsData:', reviewsData);
-    }
-  } else {
-    console.error('Unexpected data structure in reviewsData:', reviewsData);
-  }
-}
+//       }
+//       newDataFetched = true;
+//     } else {
+//       console.warn('No reviews found in reviewsData:', reviewsData);
+//     }
+//   } else {
+//     console.error('Unexpected data structure in reviewsData:', reviewsData);
+//   }
+// }
 
 
 
