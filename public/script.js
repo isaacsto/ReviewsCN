@@ -160,22 +160,22 @@ function fetchNextPage() {
       "Content-Type": "application/json",
     }
   })
-    .then(response => response.json())
-    .then(reviewsData => {
-  
-
-  
+  .then(response => response.json())
+  .then(reviewsData => {
+    if (reviewsData.next_page_token) {
       nextToken = reviewsData.next_page_token;
-      console.log(nextToken);
       appendData(reviewsData);
-      saveToLocalStorage(reviewsData);
-      currentIndex++;
-    })
-    .catch(error => {
-      console.error('Error fetching reviews data:', error);
-    });
-
+    } else { 
+      displayNoReviewsMessage(); 
+    }
+    saveToLocalStorage(reviewsData);
+    currentIndex++;
+  }) 
+  .catch(error => {
+    console.error('Error fetching reviews data:', error);
+  });
 };
+
 function displayNoReviewsMessage() {
   const reviewsContainer = document.getElementById('result');
   reviewsContainer.innerHTML = '<p>No reviews available.</p>';
