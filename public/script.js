@@ -75,8 +75,6 @@ function fetchReviews(dataId) {
     .then(reviewsData => {
       console.log(reviewsData);
      
-      nextToken = reviewsData.next_page_token;
-      nextParams = reviewsData.nextParams;
       appendData(reviewsData);
       saveToLocalStorage(reviewsData);
       
