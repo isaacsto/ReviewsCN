@@ -22,11 +22,17 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
       if (data.place_results) {
         dataId = data.place_results.data_id;
       } else if (data.local_results) {
-        dataId = data.local_results[0].data_id;
+        if(data.local_results[i].data_id) {
+          dataId = data.local_results[i].data_id;
+        }
       }
-      // fetch reviews
-      fetchReviews(dataId); 
+      if (dataId) {
+        fetchReviews(dataId); 
 
+      } else {
+        console.log("No matching result found.");
+      }
+    
     })
   
     .catch(error => {
@@ -69,8 +75,8 @@ function fetchReviews(dataId) {
     .then(response => response.json())
     .then(reviewsData => {
       console.log(reviewsData);
-     
       nextToken = reviewsData.next_page_token;
+      // nextParams = reviewsData.next_params;
       appendData(reviewsData);
       saveToLocalStorage(reviewsData);
       
@@ -154,9 +160,7 @@ function fetchNextPage() {
   })
     .then(response => response.json())
     .then(reviewsData => {
-  
-
-  
+      console.log(reviewsData);
       nextToken = reviewsData.next_page_token;
       console.log(nextToken);
       appendData(reviewsData);
@@ -172,15 +176,6 @@ function fetchNextPage() {
 function displayNoReviewsMessage() {
   const reviewsContainer = document.getElementById('result');
   reviewsContainer.innerHTML = '<p>No reviews available.</p>';
-}
-
-function fetchPreviousPage() {
-  if (newDataFetched && previousReviewsData) {
-    appendPrevData(previousReviewsData);
-  } else {
-    console.error('No previous reviews data found');
-  }
-
 }
 
 document.getElementById('next-page-top').addEventListener('click', function () {
