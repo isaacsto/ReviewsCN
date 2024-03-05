@@ -75,6 +75,8 @@ function fetchReviews(dataId) {
     .then(reviewsData => {
       console.log(reviewsData);
      
+      nextToken = reviewsData.next_page_token;
+      nextParams = reviewsData.nextParams;
       appendData(reviewsData);
       saveToLocalStorage(reviewsData);
       
@@ -158,22 +160,21 @@ function fetchNextPage() {
       "Content-Type": "application/json",
     }
   })
-  .then(response => response.json())
-  .then(reviewsData => {
-    if (reviewsData.next_page_token) {
+    .then(response => response.json())
+    .then(reviewsData => {
+  
       nextToken = reviewsData.next_page_token;
+      console.log(nextToken);
       appendData(reviewsData);
-    } else { 
-      displayNoReviewsMessage(); 
-    }
-    saveToLocalStorage(reviewsData);
-    currentIndex++;
-  }) 
-  .catch(error => {
-    console.error('Error fetching reviews data:', error);
-  });
-};
+      saveToLocalStorage(reviewsData);
+      currentIndex++;
+    }) 
+    
+    .catch(error => {
+      console.error('Error fetching reviews data:', error);
+    });
 
+};
 function displayNoReviewsMessage() {
   const reviewsContainer = document.getElementById('result');
   reviewsContainer.innerHTML = '<p>No reviews available.</p>';
