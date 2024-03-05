@@ -22,12 +22,7 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
       if (data.place_results) {
         dataId = data.place_results.data_id;
       } else if (data.local_results) {
-        for (i = 0; i < data.local_results.length; i++) {
-          if (data.local_results[i].title === keyword) {
-            dataId = data.local_results[i].data_id;
-            break;
-          }
-        }
+        dataId = data.local_results[0].data_id;
       }
       // fetch reviews
       fetchReviews(dataId); 
@@ -159,6 +154,8 @@ function fetchNextPage() {
   })
     .then(response => response.json())
     .then(reviewsData => {
+  
+
   
       nextToken = reviewsData.next_page_token;
       console.log(nextToken);
