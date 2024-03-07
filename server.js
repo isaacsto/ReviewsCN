@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
 
 // Load API_key
 
-const API_key = process.env.API_key_new;
+const API_key = process.env.API_key;
 
 
 
