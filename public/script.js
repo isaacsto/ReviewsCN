@@ -25,6 +25,8 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
         if(data.local_results[i].data_id) {
           dataId = data.local_results[i].data_id;
         }
+      }
+      if (dataId) {
         fetchReviews(dataId); 
 
       } else {
