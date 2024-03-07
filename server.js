@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
 
 // Load API_key
 
-const API_key_new = process.env.API_key_new;
+const API_key = process.env.API_key_new;
 
 
 
@@ -40,7 +40,7 @@ app.get("/api/search/google_maps", (req, res) => {
   console.log(keyword);
 
   getJson({
-    api_key: API_key_new,
+    api_key: API_key,
     engine: "google_maps",
     q: keyword,
     type: "search",
@@ -64,7 +64,7 @@ app.post("/api/search/google_maps_reviews", (req, res) => {
   console.log(req.query);
 
  let params = {
-    api_key: API_key_new,
+    api_key: API_key,
     engine: "google_maps_reviews",
     data_id: dataId,
     q: keyword,
@@ -74,7 +74,7 @@ app.post("/api/search/google_maps_reviews", (req, res) => {
   }
   if (req.body.nextParams) {
     params = req.body.nextParams
-    params.api_key = API_key_new
+    params.api_key = API_key
   }
   getJson(params)
     .then((reviewsJson) => {
