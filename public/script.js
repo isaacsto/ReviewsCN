@@ -22,11 +22,15 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
       if (data.place_results) {
         dataId = data.place_results.data_id;
       } else if (data.local_results) {
+        for (let i = 0; i < data.local_results.length; i++) {
         if(data.local_results[i].data_id) {
           dataId = data.local_results[i].data_id;
         }
       }
+      }
       if (dataId) {
+        nextParams = null; 
+        
         fetchReviews(dataId); 
 
       } else {
@@ -76,7 +80,7 @@ function fetchReviews(dataId) {
     .then(reviewsData => {
       console.log(reviewsData);
       nextToken = reviewsData.next_page_token;
-      nextParams = reviewsData.next_params;
+      nextParams = reviewsData.nextParams;
       appendData(reviewsData);
       saveToLocalStorage(reviewsData);
       
@@ -161,8 +165,8 @@ function fetchNextPage() {
     .then(response => response.json())
     .then(reviewsData => {
       console.log(reviewsData);
-      nextToken = reviewsData.next_page_token;
-      console.log(nextToken);
+      nextToken = reviewsData.nextParams.next_page_token;
+      nextParams = reviewsData.nextParams;
       appendData(reviewsData);
       saveToLocalStorage(reviewsData);
       currentIndex++;
