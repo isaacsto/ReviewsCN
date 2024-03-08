@@ -59,6 +59,7 @@ h2 {
 .buttons {
     display: flex; 
     flex-direction: row; 
+    justify-content: center; 
     gap: 10px; 
 
 }
@@ -134,7 +135,10 @@ button#submit{
     .form-fields {
         flex-direction: column; 
         width: 100%; 
-
+    }
+    .spec {
+        display: flex; 
+        flex-direction: row; 
     }
 
 }
