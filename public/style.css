@@ -209,6 +209,10 @@ div#result.grid-container {
     display: none; 
   }
 
+
+  .panel p {
+    padding: 0 10px; 
+  }
 footer {
    position: fixed;
    bottom: 0; 
