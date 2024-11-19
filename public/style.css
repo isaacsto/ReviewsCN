@@ -172,6 +172,7 @@ div#result.grid-container {
     grid-template-columns: repeat(4, 1fr); 
     grid-gap: 3.5rem;  
     padding: 20px 40px;
+    transform: translateY(20%);
   }
 
 @media screen and (max-width: 1200px) {
