@@ -5,7 +5,7 @@
     
 }
 body {
-    background-color: #091643; 
+    background-color: #fff; 
 }
 header {
     width: 100%;
@@ -37,7 +37,7 @@ h1 {
 }
 h2 {
     padding-top: 30px; 
-    color: #ffffff; 
+    color: #091643; 
     text-align: center;
 }
 
@@ -68,7 +68,7 @@ label {
     font-size: 25px; 
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    color: #ffffff; 
+    color: #091643;
 }
 
 input {
@@ -163,7 +163,7 @@ button#submit{
 }
 div#result.grid-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); 
+    grid-template-columns: repeat(4, 1fr); 
     grid-gap: 3.5rem;  
     padding: 20px;
     width: 85%; 
@@ -183,16 +183,16 @@ div#result.grid-container {
 }
 
   .review-card {
-    border: 4px double #ffffff;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
     border-radius: 7px;
     padding: 10px 20px; 
     width: 80%;
-    background-color: #102a8b;
+    background-color: #091643; 
     color: #ffffff;
     text-align: center;
   }
   .review-card:hover {
-    background-color: #0131e0;
+    background-color: #102a8b;;
     box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.7);
   }
 
